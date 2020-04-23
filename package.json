@@ -9,7 +9,7 @@
     "startdev": "nodemon server/index.js"
   },
   "nodemonConfig": {
-    "watch": "server/*"
+    "watch": ["server/*", "database/*"]
   },
   "keywords": [],
   "author": "",
