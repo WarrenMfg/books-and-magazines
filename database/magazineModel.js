@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const magazineSchema = new mongoose.Schema({
   item: {
     type: String,
-    default: 'Magazine'
+    default: 'magazine'
   },
   description: {
     type: String,

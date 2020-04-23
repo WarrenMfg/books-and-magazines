@@ -1,10 +1,49 @@
 import React from 'react';
+import api from '../api';
+import Form from './Form.jsx';
 
 
 class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      formVisible: false,
+      postSuccessful: 0
+    };
+
+    this.POST = this.POST.bind(this);
+    this.hanldeFormVisibility = this.hanldeFormVisibility.bind(this);
+  }
+
+  // LIFECYCLE
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.postSuccessful !== this.state.postSuccessful) {
+      console.log('Will get all books and magazines');
+      // this.GET();
+    }
+  }
+
+  // API
+  POST(item, quantity, data) {
+    api.POST(item, quantity, data)
+      .then(res => res.json())
+      .then(() => {
+        this.setState({ postSucessful: this.state.postSuccessful + 1 });
+        this.hanldeFormVisibility();
+      })
+      .catch(err => console.error(err));
+  }
+
+  hanldeFormVisibility() {
+    this.setState({ formVisible: !this.state.formVisible });
+  }
+
   render() {
     return (
-      <div>Hello world!</div>
+      <div className="App">
+        <div><button type="button" onClick={this.hanldeFormVisibility}>Add Item</button></div>
+        { this.state.formVisible && <Form handleCancel={this.hanldeFormVisibility} POST={this.POST} /> }
+      </div>
     );
   }
 }

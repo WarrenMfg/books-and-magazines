@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bookSchema = new mongoose.Schema({
   item: {
     type: String,
-    default: 'Book'
+    default: 'book'
   },
   description: {
     type: String,

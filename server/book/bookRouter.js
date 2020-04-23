@@ -7,10 +7,14 @@ Router.route('/one')
   .get(controller.getOne)
   .post(controller.createOne)
   .put(controller.updateOne)
-  .delete(controller.deleteOne)
+  .delete(controller.deleteOne);
 
 Router.route('/many')
   .get(controller.getMany);
+
+// to get all of both books and magazines on load
+Router.route('/all')
+  .get(controller.getAll);
 
 
 module.exports = Router;

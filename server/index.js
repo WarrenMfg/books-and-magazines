@@ -10,8 +10,8 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.use('/api/books', bookRouter);
-app.use('/api/magazines', magazineRouter);
+app.use('/api/book', bookRouter);
+app.use('/api/magazine', magazineRouter);
 
 // app.get('/bundle.js', (req, res) => {});
 
