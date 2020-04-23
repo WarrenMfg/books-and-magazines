@@ -81,6 +81,7 @@ class Form extends React.Component {
 
     if (item === 'book') {
       const { title, author, description, price } = this.state;
+      // if state propery is truthy, then add it to data object; otherwise, provide user feedback, and set isValid to false
       title ? data.title = title.trim() : this.provideUserFeedback('title') ? isValid = false : null;
       author ? data.author = author.trim() : this.provideUserFeedback('author') ? isValid = false : null;
       description ? data.description = description.trim() : this.provideUserFeedback('description') ? isValid = false : null;
@@ -88,6 +89,7 @@ class Form extends React.Component {
 
     } else if (item === 'magazine') {
       const { name, volume, issue, description, price } = this.state;
+      // if state propery is truthy, then add it to data object; otherwise, provide user feedback, and set isValid to false
       name ? data.name = name.trim() : this.provideUserFeedback('name') ? isValid = false : null;
       volume && /^[0-9]+$/.test(volume) ? data.volume = parseInt(volume, 10) : this.provideUserFeedback('volume') ? isValid = false : null;
       issue && /^[0-9]+$/.test(issue) ? data.issue = parseInt(issue, 10) : this.provideUserFeedback('issue') ? isValid = false : null;
@@ -106,7 +108,7 @@ class Form extends React.Component {
     const data = this.validateForm(this.state.item);
     if (!data) return;
 
-    this.props.POST(this.state.item, 'one', data);
+    this.props.POST('item', 'one', data);
   }
 
   render() {

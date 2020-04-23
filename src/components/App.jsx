@@ -8,7 +8,7 @@ class App extends React.Component {
     super();
     this.state = {
       formVisible: false,
-      postSuccessful: 0
+      items: []
     };
 
     this.POST = this.POST.bind(this);
@@ -17,18 +17,15 @@ class App extends React.Component {
 
   // LIFECYCLE
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.postSuccessful !== this.state.postSuccessful) {
-      console.log('Will get all books and magazines');
-      // this.GET();
-    }
+
   }
 
   // API
   POST(item, quantity, data) {
     api.POST(item, quantity, data)
       .then(res => res.json())
-      .then(() => {
-        this.setState({ postSucessful: this.state.postSuccessful + 1 });
+      .then(items => {
+        this.setState({ items });
         this.hanldeFormVisibility();
       })
       .catch(err => console.error(err));

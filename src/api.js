@@ -1,8 +1,8 @@
-const GET = (item = 'book', quantity = 'all') => {
+const GET = (item = 'item', quantity = 'all') => {
   return fetch(`api/${item}/${quantity}`);
 };
 
-const POST = (item, quantity, data) => {
+const POST = (item = 'item', quantity = 'one', data) => {
   return fetch(`api/${item}/${quantity}`, {
     method: 'POST',
     headers: {
@@ -12,7 +12,7 @@ const POST = (item, quantity, data) => {
   });
 };
 
-const PUT = (item, quantity, data) => {
+const PUT = (item = 'item', quantity = 'one', data) => {
   return fetch(`api/${item}/${quantity}`, {
     method: 'PUT',
     headers: {
@@ -22,7 +22,7 @@ const PUT = (item, quantity, data) => {
   });
 };
 
-const DELETE = (item, quantity, record) => {
+const DELETE = (item = 'item', quantity = 'one', record) => {
   return fetch(`api/${item}/${quantity}/${record}`, {
     method: 'DELETE',
     headers: {

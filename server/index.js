@@ -1,8 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const connect = require('../database/index');
-const bookRouter = require('./book/bookRouter');
-const magazineRouter = require('./magazine/magazineRouter');
+const itemRouter = require('./item/itemRouter');
 
 const PORT = process.env.PORT || 50000;
 const app = express();
@@ -10,8 +9,7 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.use('/api/book', bookRouter);
-app.use('/api/magazine', magazineRouter);
+app.use('/api/item', itemRouter);
 
 // app.get('/bundle.js', (req, res) => {});
 

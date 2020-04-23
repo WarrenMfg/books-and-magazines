@@ -1,5 +1,5 @@
 const crud = require('../../database/crud');
-const Book = require('../../database/bookModel');
+const Item = require('../../database/itemModel');
 
 // receive object of methods from crud.js
-module.exports = crud(Book);
+module.exports = crud(Item);

@@ -1,6 +1,5 @@
 const Router = require('express').Router();
-const controller = require('./bookController');
-// require('../../database/index');
+const controller = require('./itemController');
 
 
 Router.route('/one')
@@ -12,7 +11,6 @@ Router.route('/one')
 Router.route('/many')
   .get(controller.getMany);
 
-// to get all of both books and magazines on load
 Router.route('/all')
   .get(controller.getAll);
 

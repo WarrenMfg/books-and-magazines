@@ -3,11 +3,12 @@ const getOne = model => (req, res) => {
 };
 
 const createOne = model => async (req, res) => {
-  const doc = await model.create(req.body);
-  if (doc) {
-    res.send({ msg: 'OK' });
-  } else {
-    res.sendStatus(400); // bad request
+  try {
+    await model.create(req.body);
+    getAll(model)(req, res);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(400);
   }
 };
 
@@ -23,8 +24,14 @@ const getMany = model => (req, res) => {
   res.send({msg: 'Ok!'});
 };
 
-const getAll = model => (req, res) => {
-
+const getAll = model => async (req, res) => {
+  try {
+    const docs = await model.find({}).sort({ price: -1 }).lean().exec();
+    res.send(docs);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(400);
+  }
 };
 
 
