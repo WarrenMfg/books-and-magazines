@@ -189,6 +189,7 @@ fieldset {
   padding: 20px 0;
   font-weight: 900;
   text-align: center;
+  cursor: pointer;
 }
 
 p#header-col-1 {
@@ -207,10 +208,16 @@ p#header-col-2 {
 
 #header-col-4 {
   grid-area: col4;
+  position: relative;
 }
 
 #header-col-5 {
   grid-area: col5;
+}
+
+.fa-caret-down, .fa-caret-up {
+  position: absolute;
+  right: 25%;
 }
 
 

@@ -1,5 +1,9 @@
-const GET = (item = 'item', quantity = 'all') => {
-  return fetch(`api/${item}/${quantity}`);
+const GET = (item = 'item', quantity = 'all', column, direction) => {
+  if (column && direction) {
+    return fetch(`api/${item}/${quantity}/${column}/${direction}`);
+  } else {
+    return fetch(`api/${item}/${quantity}`);
+  }
 };
 
 const POST = (item = 'item', quantity = 'one', data) => {

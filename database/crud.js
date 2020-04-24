@@ -1,3 +1,6 @@
+const utils = require('./utils');
+
+
 const getOne = model => (req, res) => {
   res.send({msg: 'Ok!'});
 };
@@ -72,6 +75,29 @@ const getAll = model => async (req, res) => {
   }
 };
 
+const getAllByUserOrder = model => async (req, res) => {
+  try {
+    const { column, direction } = req.params;
+    let docs = await model.find({}).lean().exec();
+
+    if (column === 'title') {
+      direction === 'ascending' ? docs = utils.sortAscending(docs, 'title', 'name') : docs = utils.sortDescending(docs, 'title', 'name');
+    } else if (column === 'author') {
+      direction === 'ascending' ? docs = utils.sortAscending(docs, 'author', 'volume', 'issue') : docs = utils.sortDescending(docs, 'author', 'volume', 'issue');
+    } else if (column === 'description') {
+      direction === 'ascending' ? docs = utils.sortAscending(docs, 'description') : docs = utils.sortDescending(docs, 'description');
+    } else if (column === 'price') {
+      direction === 'ascending' ? docs = utils.sortAscending(docs, 'price') : docs = utils.sortDescending(docs, 'price');
+    }
+
+    res.send(docs);
+
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(400);
+  }
+};
+
 
 module.exports = (model) => ({
   getOne: getOne(model),
@@ -79,5 +105,6 @@ module.exports = (model) => ({
   updateOne: updateOne(model),
   deleteOne: deleteOne(model),
   getMany: getMany(model),
-  getAll: getAll(model)
+  getAll: getAll(model),
+  getAllByUserOrder: getAllByUserOrder(model)
 });

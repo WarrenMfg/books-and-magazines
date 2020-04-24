@@ -16,5 +16,8 @@ Router.route('/many') // not used
 Router.route('/all')
   .get(controller.getAll);
 
+Router.route('/all/:column/:direction')
+  .get(controller.getAllByUserOrder);
+
 
 module.exports = Router;

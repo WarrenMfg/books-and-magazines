@@ -140,6 +140,7 @@ class Form extends React.Component {
 
     if (item === 'book') {
       const { title, author, description, price } = this.state;
+
       // this is not as scary as it seems: if state propery is truthy, then add it to data object; otherwise, provide user feedback, and set isValid to false
       title && /^[A-Za-z0-9 \.\'\"\-]+$/.test(title) ? data.title = title.trim() : this.provideUserFeedback('title') ? isValid = false : null;
       author && /^[A-Za-z \-]+$/.test(author) ? data.author = author.trim() : this.provideUserFeedback('author') ? isValid = false : null;
@@ -148,6 +149,7 @@ class Form extends React.Component {
 
     } else if (item === 'magazine') {
       const { name, volume, issue, description, price } = this.state;
+
       // this is not as scary as it seems: if state propery is truthy, then add it to data object; otherwise, provide user feedback, and set isValid to false
       name && /^[A-Za-z0-9 \.\'\"\-]+$/.test(name) ? data.name = name.trim() : this.provideUserFeedback('name') ? isValid = false : null;
       volume && /^[0-9]+$/.test(volume) ? data.volume = parseInt(volume, 10) : this.provideUserFeedback('volume') ? isValid = false : null;

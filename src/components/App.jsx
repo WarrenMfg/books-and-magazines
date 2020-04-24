@@ -15,6 +15,7 @@ class App extends React.Component {
 
     this.POST = this.POST.bind(this);
     this.PUT = this.PUT.bind(this);
+    this.handleSortTable = this.handleSortTable.bind(this);
     this.hanldeFormVisibility = this.hanldeFormVisibility.bind(this);
     this.handleEditOrDelete = this.handleEditOrDelete.bind(this);
   }
@@ -34,8 +35,8 @@ class App extends React.Component {
   }
 
   // API
-  GET(item, quantity) {
-    api.GET(item, quantity)
+  GET(item, quantity, column, direction) {
+    api.GET(item, quantity, column, direction)
       .then(res => res.json())
       .then(items => this.setState({ items }))
       .catch(err => console.error(err));
@@ -69,6 +70,20 @@ class App extends React.Component {
   }
 
   // HANDLERS
+  handleSortTable(e) {
+    if (e.target.tagName !== 'P') return;
+
+    // add column and direction to state
+
+    // if already column
+      // make GET request for opposite direction
+      // add opposite i element caret
+    // else
+      // remove current i element
+      // add i element (ascending) after e.target's text node
+      // make GET request
+  }
+
   hanldeFormVisibility() {
     if (this.state.itemInEditMode) {
       this.setState({ itemInEditMode: null });
@@ -98,11 +113,11 @@ class App extends React.Component {
         { this.state.formVisible && <Form handleCancel={this.hanldeFormVisibility} POST={this.POST} /> }
         { this.state.itemInEditMode && <Form handleCancel={this.hanldeFormVisibility} itemInEditMode={this.state.itemInEditMode} PUT={this.PUT} /> }
 
-        <header id="ItemList-header">
+        <header id="ItemList-header" onClick={this.handleSortTable}>
           <p id="header-col-1">Book Title&nbsp;/<br/>Magazine Name</p>
           <p id="header-col-2">Book author&nbsp;/<br/>Volume &amp; Issue</p>
           <p id="header-col-3">Description</p>
-          <p id="header-col-4">Price</p>
+          <p id="header-col-4">Price<i className="fas fa-caret-down"></i></p>
           <p id="header-col-5">Edit&nbsp;/<br/>Delete</p>
         </header>
 
