@@ -94,7 +94,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <button id="App-button" type="button" onClick={this.hanldeFormVisibility}>Add Item</button>
+        <button id="App-button" type="button" title="Add Item" onClick={this.hanldeFormVisibility}>Add Item</button>
         { this.state.formVisible && <Form handleCancel={this.hanldeFormVisibility} POST={this.POST} /> }
         { this.state.itemInEditMode && <Form handleCancel={this.hanldeFormVisibility} itemInEditMode={this.state.itemInEditMode} PUT={this.PUT} /> }
         <ItemList

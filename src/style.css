@@ -166,6 +166,45 @@ fieldset {
   background-color: white;
 }
 
+#ItemList-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr 1fr 0.5fr;
+  grid-template-areas: "col1 col2 col3 col4 col5";
+  padding: 0 20px;
+}
+
+#ItemList-header p {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 20px 0;
+  font-weight: 900;
+  text-align: center;
+}
+
+#header-col-1 {
+  grid-area: col1;
+}
+
+#header-col-2 {
+  grid-area: col2;
+}
+
+#header-col-3 {
+  grid-area: col3;
+}
+
+#header-col-4 {
+  grid-area: col4;
+}
+
+#header-col-5 {
+  grid-area: col5;
+}
+
+
 
 /* ITEM */
 .Item {
@@ -190,16 +229,6 @@ fieldset {
   text-overflow: ellipsis;
 }
 
-/* .Item p:after:not(.Item-crud) {
-  content: "";
-  text-align: right;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 70%;
-  height: 1em;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
-} */
 
 /* ITEM BOOK */
 .Item-book {
