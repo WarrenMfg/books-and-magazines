@@ -46,6 +46,7 @@ button:hover {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0,0,0,0.5);
+  z-index: 1;
 }
 
 form {
@@ -171,7 +172,6 @@ fieldset {
   display: grid;
   grid-template-columns: 2fr 1fr 2fr 1fr 0.5fr;
   align-items: center;
-  min-height: 60px;
   padding: 20px;
   border-radius: 10px;
   transition: all 0.2s ease;
@@ -182,8 +182,24 @@ fieldset {
 }
 
 .Item p {
+  height: 1.2em;
   margin: 0;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+/* .Item p:after:not(.Item-crud) {
+  content: "";
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 70%;
+  height: 1em;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+} */
 
 /* ITEM BOOK */
 .Item-book {
