@@ -97,6 +97,15 @@ class App extends React.Component {
         <button id="App-button" type="button" title="Add Item" onClick={this.hanldeFormVisibility}>Add Item</button>
         { this.state.formVisible && <Form handleCancel={this.hanldeFormVisibility} POST={this.POST} /> }
         { this.state.itemInEditMode && <Form handleCancel={this.hanldeFormVisibility} itemInEditMode={this.state.itemInEditMode} PUT={this.PUT} /> }
+
+        <header id="ItemList-header">
+          <p id="header-col-1">Book Title /<br/>Publication Name</p>
+          <p id="header-col-2">Book author /<br/>Volume &amp; Issue</p>
+          <p id="header-col-3">Description</p>
+          <p id="header-col-4">Price</p>
+          <p id="header-col-5">Edit /<br/>Delete</p>
+        </header>
+
         <ItemList
           items={this.state.items}
           handleEditOrDelete={this.handleEditOrDelete}

@@ -16,6 +16,7 @@ body {
   padding: 20px;
   width: 75vw;
   min-height: 100vh;
+  max-height: 100vh;
   background-color: white;
 }
 
@@ -162,7 +163,6 @@ fieldset {
 
 /* ITEM LIST */
 .ItemList {
-  margin: 20px 0 0;
   background-color: white;
 }
 
