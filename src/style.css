@@ -19,7 +19,7 @@ body {
   background-color: white;
 }
 
-#App-button {
+button {
   display: block;
   margin: auto;
   font-size: 20px;
@@ -32,7 +32,7 @@ body {
   cursor: pointer;
 }
 
-#App-button:hover {
+button:hover {
   color: white;
   background-color: black;
 }
@@ -40,17 +40,39 @@ body {
 
 /* FORM */
 #Form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+}
+
+form {
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  height: 75vh;
+  width: 33vw;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 0 25px gray;
+  border-radius: 10px;
 
 }
 
 fieldset {
   border: none;
+  margin: 0;
+  padding: 0;
 }
 
 #Form-book-or-magazine {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "book magazine";
+  padding: 20px 0;
 }
 
 #Form-book-book {
@@ -58,6 +80,7 @@ fieldset {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  padding-right: 20px;
 }
 
 #Form-book-magazine {
@@ -82,9 +105,13 @@ input, textarea {
   align-content: center;
 }
 
+#Form-buttons button {
+  margin: 0 10px;
+  font-size: 16px;
+}
+
 #Form-single-cancel-button {
-  display: block;
-  margin: auto;
+  font-size: 16px;
 }
 
 
@@ -97,6 +124,7 @@ input, textarea {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "title author";
+  padding: 20px 0;
 }
 
 #Form-book-title {
@@ -117,6 +145,7 @@ input, textarea {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "description price";
+  padding: 20px 0;
 }
 
 #Form-book-description {

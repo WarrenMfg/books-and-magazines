@@ -118,8 +118,8 @@ class Form extends React.Component {
 
           <fieldset>
             <div id="Form-book-or-magazine">
-              <label id="Form-book-book">Book <input type="radio" name="item" value="book" onChange={this.handleChange}/></label>
-              <label id="Form-book-magazine">Magazine <input type="radio" name="item" value="magazine" onChange={this.handleChange}/></label>
+              <label id="Form-book-book" htmlFor="book">Book&nbsp;<input id="book" type="radio" name="item" value="book" onChange={this.handleChange}/></label>
+              <label id="Form-book-magazine" htmlFor="magazine">Magazine&nbsp;<input id="magazine" type="radio" name="item" value="magazine" onChange={this.handleChange}/></label>
             </div>
           </fieldset>
 
@@ -129,12 +129,12 @@ class Form extends React.Component {
 
             <fieldset id="Form-book">
               <div id="Form-book-top">
-                <label id="Form-book-title">Title <input type="text" name="title" value={this.state.title} onChange={this.handleChange}/></label>
-                <label id="Form-book-author">Author <input type="text" name="author" value={this.state.author} onChange={this.handleChange}/></label>
+                <label id="Form-book-title" htmlFor="title">Title <input id="title" type="text" name="title" value={this.state.title} onChange={this.handleChange}/></label>
+                <label id="Form-book-author" htmlFor="author">Author <input id="author" type="text" name="author" value={this.state.author} onChange={this.handleChange}/></label>
               </div>
               <div id="Form-book-bottom">
-                <label id="Form-book-description">Description <textarea name="description" value={this.state.description} onChange={this.handleChange}></textarea></label>
-                <label id="Form-book-price">Price <input type="text" name="price" value={this.state.price} onChange={this.handleChange}/></label>
+                <label id="Form-book-description" htmlFor="description">Description <textarea id="description" name="description" value={this.state.description} onChange={this.handleChange}></textarea></label>
+                <label id="Form-book-price" htmlFor="price">Price <input id="price" type="text" name="price" value={this.state.price} onChange={this.handleChange}/></label>
               </div>
             </fieldset>
 
@@ -142,13 +142,13 @@ class Form extends React.Component {
 
             <fieldset id="Form-magazine">
               <div id="Form-magazine-top">
-                <label id="Form-magazine-name">Name <input type="text" name="name" value={this.state.name} onChange={this.handleChange}/></label>
-                <label id="Form-magazine-volume">Volume <input type="text" name="volume" value={this.state.volume} onChange={this.handleChange}/></label>
-                <label id="Form-magazine-issue">Issue <input type="text" name="issue" value={this.state.issue} onChange={this.handleChange}/></label>
+                <label id="Form-magazine-name" htmlFor="name">Name <input id="name" type="text" name="name" value={this.state.name} onChange={this.handleChange}/></label>
+                <label id="Form-magazine-volume" htmlFor="volume">Volume <input id="volume" type="text" name="volume" value={this.state.volume} onChange={this.handleChange}/></label>
+                <label id="Form-magazine-issue" htmlFor="issue">Issue <input id="issue" type="text" name="issue" value={this.state.issue} onChange={this.handleChange}/></label>
               </div>
               <div id="Form-magazine-bottom">
-                <label id="Form-magazine-description">Description <textarea name="description" value={this.state.description} onChange={this.handleChange}></textarea></label>
-                <label id="Form-magazine-price">Price <input type="text" name="price" value={this.state.price} onChange={this.handleChange}/></label>
+                <label id="Form-magazine-description" htmlFor="description">Description <textarea id="description" name="description" value={this.state.description} onChange={this.handleChange}></textarea></label>
+                <label id="Form-magazine-price" htmlFor="price">Price <input id="price" type="text" name="price" value={this.state.price} onChange={this.handleChange}/></label>
               </div>
             </fieldset>
 
