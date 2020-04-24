@@ -26,6 +26,45 @@ class Form extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    if (this.props.itemInEditMode) {
+      this.checkRadioButtonAndDisable();
+      this.populateInputsWithItemValues();
+    }
+  }
+
+  checkRadioButtonAndDisable() {
+    const radio = document.querySelectorAll('input[type="radio"]');
+
+    radio.forEach(button => {
+      if (button.value === this.props.itemInEditMode.item) {
+        button.checked = true;
+      }
+      button.disabled = true;
+    })
+  }
+
+  populateInputsWithItemValues() {
+    const itemValues = this.props.itemInEditMode;
+
+    const item = itemValues.item;
+
+    // book
+    const title = itemValues.title ? itemValues.title : '';
+    const author = itemValues.author ? itemValues.author : '';
+
+    // magazine
+    const name = itemValues.name ? itemValues.name : '';
+    const volume = itemValues.volume ? itemValues.volume : '';
+    const issue = itemValues.issue ? itemValues.issue : '';
+
+    // both
+    const description = itemValues.description ? itemValues.description : '';
+    const price = itemValues.price ? itemValues.price : '';
+
+    this.setState({ item, title, author, name, volume, issue, description, price });
+  }
+
   handleChange(e) {
     // if radio button
     if (e.target.name === 'item') {
@@ -128,7 +167,12 @@ class Form extends React.Component {
     const data = this.validateForm(this.state.item);
     if (!data) return;
 
-    this.props.POST('item', 'one', data);
+    if (this.props.itemInEditMode) {
+      data._id = this.props.itemInEditMode._id;
+      this.props.PUT('item', 'one', data);
+    } else {
+      this.props.POST('item', 'one', data);
+    }
   }
 
   render() {

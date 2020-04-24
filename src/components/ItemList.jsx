@@ -14,7 +14,7 @@ class ItemList extends React.Component {
   render() {
     return (
       <div className="ItemList">
-        {this.props.items.map(item => <Item key={item._id} item={item} />)}
+        {this.props.items.map(item => <Item key={item._id} item={item} handleEditOrDelete={this.props.handleEditOrDelete} />)}
       </div>
     );
   }

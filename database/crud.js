@@ -12,8 +12,24 @@ const createOne = model => async (req, res) => {
   }
 };
 
-const updateOne = model => (req, res) => {
-  res.send({msg: 'Ok!'});
+const updateOne = model => async (req, res) => {
+  try {
+    const updatedDoc = await model
+      .findByIdAndUpdate(req.body._id, req.body, { new: true })
+      .lean()
+      .exec();
+
+    if (!updatedDoc) {
+      res.sendStatus(400);
+      return;
+    }
+
+    getAll(model)(req, res);
+
+  } catch (e) {
+    console.error(e);
+    res.sendStatus(400);
+  }
 };
 
 const deleteOne = model => (req, res) => {

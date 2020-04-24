@@ -12,9 +12,9 @@ class Item extends React.Component {
 
   render() {
     if (this.props.item.item === 'book') {
-      const { title, author, description, price } = this.props.item;
+      const { _id, title, author, description, price } = this.props.item;
       return (
-        <div className="Item Item-book">
+        <div className="Item Item-book" onClick={this.props.handleEditOrDelete} data-id={_id}>
           <p className="Item-title">{title}</p>
           <p className="Item-author">{author}</p>
           <p className="Item-description">{description}</p>
@@ -24,9 +24,9 @@ class Item extends React.Component {
       );
 
     } else if (this.props.item.item === 'magazine') {
-      const { name, volume, issue, description, price } = this.props.item;
+      const { _id, name, volume, issue, description, price } = this.props.item;
       return (
-        <div className="Item Item-magazine">
+        <div className="Item Item-magazine" onClick={this.props.handleEditOrDelete} data-id={_id}>
           <p className="Item-name">{name}</p>
           <p className="Item-volume-span"><span>{volume}</span> <span>{issue}</span></p>
           <p className="Item-description">{description}</p>

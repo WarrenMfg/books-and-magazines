@@ -170,14 +170,15 @@ fieldset {
 .Item {
   display: grid;
   grid-template-columns: 2fr 1fr 2fr 1fr 0.5fr;
-  height: 60px;
+  align-items: center;
+  min-height: 60px;
   padding: 20px;
   border-radius: 10px;
   transition: all 0.2s ease;
 }
 
 .Item:hover {
-  box-shadow: 0 0 10px black;
+  box-shadow: 0 0 10px gray;
 }
 
 .Item p {
@@ -191,10 +192,12 @@ fieldset {
 
 .Item-title {
   grid-area: title;
+  padding-right: 20px;
 }
 
 .Item-author {
   grid-area: author;
+  padding-right: 20px;
 }
 
 /* ITEM MAGAZINE */
@@ -204,15 +207,18 @@ fieldset {
 
 .Item-name {
   grid-area: name;
+  padding-right: 20px;
 }
 
 .Item-volume-span {
   grid-area: volumeAndSpan;
+  padding-right: 20px;
 }
 
 /* BOTH */
 .Item-description {
   grid-area: description;
+  padding-right: 20px;
 }
 
 .Item-price {

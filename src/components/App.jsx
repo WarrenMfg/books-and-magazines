@@ -9,18 +9,21 @@ class App extends React.Component {
     super();
     this.state = {
       formVisible: false,
-      items: []
+      items: [],
+      itemInEditMode: null
     };
 
     this.POST = this.POST.bind(this);
+    this.PUT = this.PUT.bind(this);
     this.hanldeFormVisibility = this.hanldeFormVisibility.bind(this);
+    this.handleEditOrDelete = this.handleEditOrDelete.bind(this);
   }
 
   // LIFECYCLE
   componentDidMount() {
     document.body.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        this.setState({ formVisible: false });
+        this.setState({ formVisible: false, itemInEditMode: null });
       }
     });
     this.GET('item', 'all');
@@ -48,8 +51,38 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
+  PUT(item, quantity, data) {
+    api.PUT(item, quantity, data)
+      .then(res => res.json())
+      .then(items => {
+        this.setState({ items });
+        this.hanldeFormVisibility();
+      })
+      .catch(err => console.error(err));
+  }
+
+  // HANDLERS
   hanldeFormVisibility() {
-    this.setState({ formVisible: !this.state.formVisible });
+    if (this.state.itemInEditMode) {
+      this.setState({ itemInEditMode: null });
+    } else {
+      this.setState({ formVisible: !this.state.formVisible });
+    }
+  }
+
+  handleEditOrDelete(e) {
+    const id = e.target.closest('div.Item').dataset?.id;
+
+    // edit
+    if (id && e.target.classList.contains('fa-edit')) {
+      const itemInEditMode = { ...this.state.items.filter(item => item._id === id)[0] };
+      this.setState({ itemInEditMode });
+
+    // delete
+    } else if (e.target.parentElement?.dataset?.id && e.target.classList.contains('fa-trash-alt')) {
+      // DELETE
+      // this.setState({ itemInEditMode: null });
+    }
   }
 
   render() {
@@ -57,8 +90,10 @@ class App extends React.Component {
       <div className="App">
         <button id="App-button" type="button" onClick={this.hanldeFormVisibility}>Add Item</button>
         { this.state.formVisible && <Form handleCancel={this.hanldeFormVisibility} POST={this.POST} /> }
+        { this.state.itemInEditMode && <Form handleCancel={this.hanldeFormVisibility} itemInEditMode={this.state.itemInEditMode} PUT={this.PUT} /> }
         <ItemList
           items={this.state.items}
+          handleEditOrDelete={this.handleEditOrDelete}
         />
       </div>
     );
