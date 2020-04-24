@@ -31,6 +31,7 @@ class Form extends React.Component {
     if (e.target.name === 'item') {
       // reset previous fields
       this.resetFields(e.target.value);
+      this.removeUserFeedback();
     }
 
     this.setState({ [e.target.name]: e.target.value });
@@ -55,20 +56,15 @@ class Form extends React.Component {
       this.resetFields('book');
     }
 
-    removeUserFeedback();
+    this.removeUserFeedback();
   }
 
-  removeUserFeedback(paragraph) {
-    if (paragraph) {
-      paragraph.classList.remove('invalid');
-      paragraph.innerText = '\u00a0';
-    } else {
-      const para = document.querySelectorAll('form p');
-      para.forEach(p => {
-        p.classList.remove('invalid');
-        p.innerText = '\u00a0';
-      });
-    }
+  removeUserFeedback() {
+    const para = document.querySelectorAll('form p');
+    para.forEach(p => {
+      p.classList.remove('invalid');
+      p.innerText = '\u00a0';
+    });
   }
 
   provideUserFeedback(name) {
@@ -91,6 +87,10 @@ class Form extends React.Component {
     para.classList.add('invalid');
     para.innerText = feedback[name];
 
+    const buttons = document.querySelector('#Form-buttons-feedback');
+    buttons.classList.add('invalid');
+    buttons.innerText = 'Please review the errors above';
+
     return true;
   }
 
@@ -101,7 +101,7 @@ class Form extends React.Component {
 
     if (item === 'book') {
       const { title, author, description, price } = this.state;
-      // if state propery is truthy, then add it to data object; otherwise, provide user feedback, and set isValid to false
+      // this is not as scary as it seems: if state propery is truthy, then add it to data object; otherwise, provide user feedback, and set isValid to false
       title && /^[A-Za-z0-9 \.\'\"\-]+$/.test(title) ? data.title = title.trim() : this.provideUserFeedback('title') ? isValid = false : null;
       author && /^[A-Za-z \-]+$/.test(author) ? data.author = author.trim() : this.provideUserFeedback('author') ? isValid = false : null;
       description ? data.description = description.trim() : this.provideUserFeedback('description') ? isValid = false : null;
@@ -109,7 +109,7 @@ class Form extends React.Component {
 
     } else if (item === 'magazine') {
       const { name, volume, issue, description, price } = this.state;
-      // if state propery is truthy, then add it to data object; otherwise, provide user feedback, and set isValid to false
+      // this is not as scary as it seems: if state propery is truthy, then add it to data object; otherwise, provide user feedback, and set isValid to false
       name && /^[A-Za-z0-9 \.\'\"\-]+$/.test(name) ? data.name = name.trim() : this.provideUserFeedback('name') ? isValid = false : null;
       volume && /^[0-9]+$/.test(volume) ? data.volume = parseInt(volume, 10) : this.provideUserFeedback('volume') ? isValid = false : null;
       issue && /^[0-9]+$/.test(issue) ? data.issue = parseInt(issue, 10) : this.provideUserFeedback('issue') ? isValid = false : null;
@@ -165,10 +165,15 @@ class Form extends React.Component {
             <fieldset>
               <div id="Form-magazine">
                 <label id="Form-magazine-name" htmlFor="name">Name <input id="name" type="text" name="name" value={this.state.name} onChange={this.handleChange}/></label>
+                <p id="Form-name-feedback">&nbsp;</p>
                 <label id="Form-magazine-volume" htmlFor="volume">Volume <input id="volume" type="text" name="volume" value={this.state.volume} onChange={this.handleChange}/></label>
+                <p id="Form-volume-feedback">&nbsp;</p>
                 <label id="Form-magazine-issue" htmlFor="issue">Issue <input id="issue" type="text" name="issue" value={this.state.issue} onChange={this.handleChange}/></label>
+                <p id="Form-issue-feedback">&nbsp;</p>
                 <label id="Form-magazine-description" htmlFor="description">Description <textarea id="description" name="description" value={this.state.description} onChange={this.handleChange}></textarea></label>
+                <p id="Form-description-feedback">&nbsp;</p>
                 <label id="Form-magazine-price" htmlFor="price">Price <input id="price" type="text" name="price" value={this.state.price} onChange={this.handleChange}/></label>
+                <p id="Form-price-feedback">&nbsp;</p>
               </div>
             </fieldset>
 
@@ -180,10 +185,13 @@ class Form extends React.Component {
           {
             this.state.item ?
 
-            <div id="Form-buttons">
-              <button type="button" onClick={this.handleSubmit}>Submit</button>
-              <button type="button" onClick={this.handleResetButton}>Reset</button>
-              <button type="button" onClick={this.props.handleCancel}>Cancel</button>
+            <div>
+              <div id="Form-buttons">
+                <button type="button" onClick={this.handleSubmit}>Submit</button>
+                <button type="button" onClick={this.handleResetButton}>Reset</button>
+                <button type="button" onClick={this.props.handleCancel}>Cancel</button>
+              </div>
+              <p id="Form-buttons-feedback">&nbsp;</p>
             </div>
 
             :

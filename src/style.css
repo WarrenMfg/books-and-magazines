@@ -14,7 +14,7 @@ body {
 .App {
   margin: auto;
   padding: 20px;
-  width: 50vw;
+  width: 75vw;
   min-height: 100vh;
   background-color: white;
 }
@@ -57,7 +57,7 @@ form {
   width: 33vw;
   padding: 20px;
   background-color: white;
-  box-shadow: 0 0 25px gray;
+  box-shadow: 0 0 25px black;
   border-radius: 10px;
 
 }
@@ -90,19 +90,10 @@ fieldset {
   align-items: center;
 }
 
-/* input, textarea {
-  transition: all 0.5s ease;
-}
-
-.invalidField {
-  background-color: pink;
-} */
-
 #Form-buttons {
   display: flex;
   justify-content: center;
   align-content: center;
-  padding-top: 15px;
 }
 
 #Form-buttons button {
@@ -115,7 +106,7 @@ fieldset {
 }
 
 
-/* BOOK */
+/* BOOK & MAGAZINE */
 #Form-book, #Form-magazine {
   display: flex;
   flex-direction: column;
@@ -126,23 +117,45 @@ fieldset {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0 0;
 }
 
+#Form-book label input, #Form-magazine label input {
+  width: 50%;
+  font-size: 16px;
+  padding: 10px;
+  border-top: 1px solid black;
+  border-right: none;
+  border-bottom: 1px solid black;
+  border-left: none;
+  border-radius: 10px;
+}
 
-#Form-book p {
-  margin: 0 0 5px;
+#Form-book label textarea, #Form-magazine label textarea {
+  width: 50%;
+  font-size: 16px;
+  padding: 10px;
+  border-top: 1px solid black;
+  border-right: none;
+  border-bottom: 1px solid black;
+  border-left: none;
+  border-radius: 10px;
+  resize: none;
+}
+
+#Form-book p, #Form-magazine p {
+  margin: 0 0 20px;
+  padding: 5px 0 5px 10px;
+  border-radius: 10px;
+}
+
+#Form-buttons-feedback {
+  margin: 0;
   padding: 5px 0 5px 10px;
   border-radius: 10px;
 }
 
 .invalid {
   background-color: yellow;
-}
-
-/* MAGAZINE */
-#Form-magazine {
-
 }
 
 
@@ -156,11 +169,10 @@ fieldset {
 /* ITEM */
 .Item {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 2fr 1fr 0.5fr;
   height: 60px;
   padding: 20px;
   border-radius: 10px;
-  cursor: pointer;
   transition: all 0.2s ease;
 }
 
@@ -174,7 +186,7 @@ fieldset {
 
 /* ITEM BOOK */
 .Item-book {
-  grid-template-areas: "title author description price";
+  grid-template-areas: "title author description price crud";
 }
 
 .Item-title {
@@ -187,7 +199,7 @@ fieldset {
 
 /* ITEM MAGAZINE */
 .Item-magazine {
-  grid-template-areas: "name volumeAndSpan description price";
+  grid-template-areas: "name volumeAndSpan description price crud";
 }
 
 .Item-name {
@@ -206,6 +218,16 @@ fieldset {
 .Item-price {
   grid-area: price;
   padding-left: 40%;
+}
+
+.Item-crud {
+  grid-area: crud;
+  text-align: center;
+}
+
+.Item-crud i {
+  padding: 0 10px;
+  cursor: pointer;
 }
 
 

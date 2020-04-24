@@ -12,20 +12,17 @@ class App extends React.Component {
       items: []
     };
 
-    this.handleEscape = this.handleEscape.bind(this);
     this.POST = this.POST.bind(this);
     this.hanldeFormVisibility = this.hanldeFormVisibility.bind(this);
   }
 
-  // GLOBAL
-  handleEscape(e) {
-    if (e.key === 'Escape') {
-      this.setState({ formVisible: false });
-    }
-  }
-
   // LIFECYCLE
   componentDidMount() {
+    document.body.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        this.setState({ formVisible: false });
+      }
+    });
     this.GET('item', 'all');
   }
 
@@ -57,7 +54,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App" onKeyDown={this.handleEscape}>
+      <div className="App">
         <button id="App-button" type="button" onClick={this.hanldeFormVisibility}>Add Item</button>
         { this.state.formVisible && <Form handleCancel={this.hanldeFormVisibility} POST={this.POST} /> }
         <ItemList

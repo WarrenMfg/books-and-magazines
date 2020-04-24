@@ -19,6 +19,7 @@ class Item extends React.Component {
           <p className="Item-author">{author}</p>
           <p className="Item-description">{description}</p>
           <p className="Item-price">{price}</p>
+          <p className="Item-crud"><i className="fas fa-edit"></i><i className="fas fa-trash-alt"></i></p>
         </div>
       );
 
@@ -30,6 +31,7 @@ class Item extends React.Component {
           <p className="Item-volume-span"><span>{volume}</span> <span>{issue}</span></p>
           <p className="Item-description">{description}</p>
           <p className="Item-price">{price}</p>
+          <p className="Item-crud"><i className="fas fa-edit"></i><i className="fas fa-trash-alt"></i></p>
         </div>
       );
     }
