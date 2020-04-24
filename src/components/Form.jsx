@@ -54,23 +54,42 @@ class Form extends React.Component {
     } else if (this.state.item === 'magazine') {
       this.resetFields('book');
     }
+
+    removeUserFeedback();
+  }
+
+  removeUserFeedback(paragraph) {
+    if (paragraph) {
+      paragraph.classList.remove('invalid');
+      paragraph.innerText = '\u00a0';
+    } else {
+      const para = document.querySelectorAll('form p');
+      para.forEach(p => {
+        p.classList.remove('invalid');
+        p.innerText = '\u00a0';
+      });
+    }
   }
 
   provideUserFeedback(name) {
-    if (name === 'description') {
-      const element = document.querySelector(`textarea[name=${name}]`);
-      element.classList.add('invalidField');
-      setTimeout(() => {
-        element.classList.remove('invalidField');
-      }, 2000);
+    const feedback = {
+      // book
+      title: 'Title required: alphanumeric characters',
+      author: 'Author required: alpha characters',
 
-    } else {
-      const element = document.querySelector(`input[name=${name}]`);
-      element.classList.add('invalidField');
-      setTimeout(() => {
-        element.classList.remove('invalidField');
-      }, 2000);
-    }
+      // magazine
+      name: 'Name required: alphanumeric characters',
+      volume: 'Volume required: numeric characters',
+      issue: 'Issue required: numeric characters',
+
+      // both
+      description: 'Description required',
+      price: 'Price required: numeric characters'
+    };
+
+    const para = document.querySelector(`#Form-${name}-feedback`);
+    para.classList.add('invalid');
+    para.innerText = feedback[name];
 
     return true;
   }
@@ -78,19 +97,20 @@ class Form extends React.Component {
   validateForm(item) {
     let isValid = true;
     const data = { item };
+    this.removeUserFeedback();
 
     if (item === 'book') {
       const { title, author, description, price } = this.state;
       // if state propery is truthy, then add it to data object; otherwise, provide user feedback, and set isValid to false
-      title ? data.title = title.trim() : this.provideUserFeedback('title') ? isValid = false : null;
-      author ? data.author = author.trim() : this.provideUserFeedback('author') ? isValid = false : null;
+      title && /^[A-Za-z0-9 \.\'\"\-]+$/.test(title) ? data.title = title.trim() : this.provideUserFeedback('title') ? isValid = false : null;
+      author && /^[A-Za-z \-]+$/.test(author) ? data.author = author.trim() : this.provideUserFeedback('author') ? isValid = false : null;
       description ? data.description = description.trim() : this.provideUserFeedback('description') ? isValid = false : null;
       price && /^([0-9])+\.?([0-9]{2})?$/.test(price) ? data.price = parseFloat(price) : this.provideUserFeedback('price') ? isValid = false : null;
 
     } else if (item === 'magazine') {
       const { name, volume, issue, description, price } = this.state;
       // if state propery is truthy, then add it to data object; otherwise, provide user feedback, and set isValid to false
-      name ? data.name = name.trim() : this.provideUserFeedback('name') ? isValid = false : null;
+      name && /^[A-Za-z0-9 \.\'\"\-]+$/.test(name) ? data.name = name.trim() : this.provideUserFeedback('name') ? isValid = false : null;
       volume && /^[0-9]+$/.test(volume) ? data.volume = parseInt(volume, 10) : this.provideUserFeedback('volume') ? isValid = false : null;
       issue && /^[0-9]+$/.test(issue) ? data.issue = parseInt(issue, 10) : this.provideUserFeedback('issue') ? isValid = false : null;
       description ? data.description = description.trim() : this.provideUserFeedback('description') ? isValid = false : null;
@@ -127,26 +147,26 @@ class Form extends React.Component {
           {
             this.state.item ? this.state.item === 'book' ?
 
-            <fieldset id="Form-book">
-              <div id="Form-book-top">
+            <fieldset>
+              <div id="Form-book">
                 <label id="Form-book-title" htmlFor="title">Title <input id="title" type="text" name="title" value={this.state.title} onChange={this.handleChange}/></label>
+                <p id="Form-title-feedback">&nbsp;</p>
                 <label id="Form-book-author" htmlFor="author">Author <input id="author" type="text" name="author" value={this.state.author} onChange={this.handleChange}/></label>
-              </div>
-              <div id="Form-book-bottom">
+                <p id="Form-author-feedback">&nbsp;</p>
                 <label id="Form-book-description" htmlFor="description">Description <textarea id="description" name="description" value={this.state.description} onChange={this.handleChange}></textarea></label>
+                <p id="Form-description-feedback">&nbsp;</p>
                 <label id="Form-book-price" htmlFor="price">Price <input id="price" type="text" name="price" value={this.state.price} onChange={this.handleChange}/></label>
+                <p id="Form-price-feedback">&nbsp;</p>
               </div>
             </fieldset>
 
             :
 
-            <fieldset id="Form-magazine">
-              <div id="Form-magazine-top">
+            <fieldset>
+              <div id="Form-magazine">
                 <label id="Form-magazine-name" htmlFor="name">Name <input id="name" type="text" name="name" value={this.state.name} onChange={this.handleChange}/></label>
                 <label id="Form-magazine-volume" htmlFor="volume">Volume <input id="volume" type="text" name="volume" value={this.state.volume} onChange={this.handleChange}/></label>
                 <label id="Form-magazine-issue" htmlFor="issue">Issue <input id="issue" type="text" name="issue" value={this.state.issue} onChange={this.handleChange}/></label>
-              </div>
-              <div id="Form-magazine-bottom">
                 <label id="Form-magazine-description" htmlFor="description">Description <textarea id="description" name="description" value={this.state.description} onChange={this.handleChange}></textarea></label>
                 <label id="Form-magazine-price" htmlFor="price">Price <input id="price" type="text" name="price" value={this.state.price} onChange={this.handleChange}/></label>
               </div>
