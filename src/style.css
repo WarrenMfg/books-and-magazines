@@ -47,7 +47,7 @@ button:hover {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0,0,0,0.5);
-  z-index: 1;
+  z-index: 2;
 }
 
 form {
@@ -164,13 +164,19 @@ fieldset {
 /* ITEM LIST */
 .ItemList {
   background-color: white;
+  height: calc(100vh - 20px - 60px - 76px);
+  overflow-y: scroll;
+  /* box-shadow: 0 0 10px inset gray; */
 }
 
 #ItemList-header {
+  position: relative;
   display: grid;
   grid-template-columns: 2fr 1fr 2fr 1fr 0.5fr;
   grid-template-areas: "col1 col2 col3 col4 col5";
   padding: 0 20px;
+  box-shadow: 0 10px 10px -10px gray;
+  z-index: 1;
 }
 
 #ItemList-header p {
@@ -184,12 +190,14 @@ fieldset {
   text-align: center;
 }
 
-#header-col-1 {
+p#header-col-1 {
   grid-area: col1;
+  padding-right: 20px;
 }
 
-#header-col-2 {
+p#header-col-2 {
   grid-area: col2;
+  padding-right: 20px;
 }
 
 #header-col-3 {
@@ -217,7 +225,7 @@ fieldset {
 }
 
 .Item:hover {
-  box-shadow: 0 0 10px gray;
+  background-color: lightgray;
 }
 
 .Item p {
