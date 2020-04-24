@@ -1,6 +1,7 @@
 import React from 'react';
 import api from '../api';
 import Form from './Form.jsx';
+import ItemList from './ItemList.jsx';
 
 
 class App extends React.Component {
@@ -16,11 +17,22 @@ class App extends React.Component {
   }
 
   // LIFECYCLE
+  componentDidMount() {
+    this.GET('item', 'all');
+  }
+
   componentDidUpdate(prevProps, prevState) {
 
   }
 
   // API
+  GET(item, quantity) {
+    api.GET(item, quantity)
+      .then(res => res.json())
+      .then(items => this.setState({ items }))
+      .catch(err => console.error(err));
+  }
+
   POST(item, quantity, data) {
     api.POST(item, quantity, data)
       .then(res => res.json())
@@ -40,6 +52,9 @@ class App extends React.Component {
       <div className="App">
         <div><button type="button" onClick={this.hanldeFormVisibility}>Add Item</button></div>
         { this.state.formVisible && <Form handleCancel={this.hanldeFormVisibility} POST={this.POST} /> }
+        <ItemList
+          items={this.state.items}
+        />
       </div>
     );
   }
