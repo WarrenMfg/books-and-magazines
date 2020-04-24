@@ -61,6 +61,13 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
+  DELETE(item, quantity, id) {
+    api.DELETE(item, quantity, id)
+      .then(res => res.json())
+      .then(items => this.setState({ items }))
+      .catch(err => console.error(err));
+  }
+
   // HANDLERS
   hanldeFormVisibility() {
     if (this.state.itemInEditMode) {
@@ -79,9 +86,8 @@ class App extends React.Component {
       this.setState({ itemInEditMode });
 
     // delete
-    } else if (e.target.parentElement?.dataset?.id && e.target.classList.contains('fa-trash-alt')) {
-      // DELETE
-      // this.setState({ itemInEditMode: null });
+    } else if (id && e.target.classList.contains('fa-trash-alt')) {
+      this.DELETE('item', 'one', id);
     }
   }
 

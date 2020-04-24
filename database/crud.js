@@ -2,15 +2,18 @@ const getOne = model => (req, res) => {
   res.send({msg: 'Ok!'});
 };
 
+
 const createOne = model => async (req, res) => {
   try {
     await model.create(req.body);
+
     getAll(model)(req, res);
   } catch (err) {
     console.error(err);
     res.sendStatus(400);
   }
 };
+
 
 const updateOne = model => async (req, res) => {
   try {
@@ -32,13 +35,32 @@ const updateOne = model => async (req, res) => {
   }
 };
 
-const deleteOne = model => (req, res) => {
-  res.send({msg: 'Ok!'});
+
+const deleteOne = model => async (req, res) => {
+  try {
+    const removed = await model
+      .findByIdAndDelete(req.params.id)
+      .lean()
+      .exec();
+
+    if (!removed) {
+      res.sendStatus(400);
+      return;
+    }
+
+    getAll(model)(req, res);
+
+  } catch (e) {
+    console.error(e);
+    res.sendStatus(400);
+  }
 };
+
 
 const getMany = model => (req, res) => {
   res.send({msg: 'Ok!'});
 };
+
 
 const getAll = model => async (req, res) => {
   try {

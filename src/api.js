@@ -22,8 +22,8 @@ const PUT = (item = 'item', quantity = 'one', data) => {
   });
 };
 
-const DELETE = (item = 'item', quantity = 'one', record) => {
-  return fetch(`api/${item}/${quantity}/${record}`, {
+const DELETE = (item = 'item', quantity = 'one', id) => {
+  return fetch(`api/${item}/${quantity}/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
