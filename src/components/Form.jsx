@@ -117,29 +117,39 @@ class Form extends React.Component {
         <form>
 
           <fieldset>
-            <label>Book <input type="radio" name="item" value="book" onChange={this.handleChange}/></label>
-            <label>Magazine <input type="radio" name="item" value="magazine" onChange={this.handleChange}/></label>
+            <div id="Form-book-or-magazine">
+              <label id="Form-book-book">Book <input type="radio" name="item" value="book" onChange={this.handleChange}/></label>
+              <label id="Form-book-magazine">Magazine <input type="radio" name="item" value="magazine" onChange={this.handleChange}/></label>
+            </div>
           </fieldset>
 
 
           {
             this.state.item ? this.state.item === 'book' ?
 
-            <fieldset>
-              <label>Title <input type="text" name="title" value={this.state.title} onChange={this.handleChange}/></label>
-              <label>Author <input type="text" name="author" value={this.state.author} onChange={this.handleChange}/></label>
-              <label>Description <textarea name="description" value={this.state.description} onChange={this.handleChange}></textarea></label>
-              <label>Price <input type="text" name="price" value={this.state.price} onChange={this.handleChange}/></label>
+            <fieldset id="Form-book">
+              <div id="Form-book-top">
+                <label id="Form-book-title">Title <input type="text" name="title" value={this.state.title} onChange={this.handleChange}/></label>
+                <label id="Form-book-author">Author <input type="text" name="author" value={this.state.author} onChange={this.handleChange}/></label>
+              </div>
+              <div id="Form-book-bottom">
+                <label id="Form-book-description">Description <textarea name="description" value={this.state.description} onChange={this.handleChange}></textarea></label>
+                <label id="Form-book-price">Price <input type="text" name="price" value={this.state.price} onChange={this.handleChange}/></label>
+              </div>
             </fieldset>
 
             :
 
-            <fieldset>
-              <label>Name <input type="text" name="name" value={this.state.name} onChange={this.handleChange}/></label>
-              <label>Volume <input type="text" name="volume" value={this.state.volume} onChange={this.handleChange}/></label>
-              <label>Issue <input type="text" name="issue" value={this.state.issue} onChange={this.handleChange}/></label>
-              <label>Description <textarea name="description" value={this.state.description} onChange={this.handleChange}></textarea></label>
-              <label>Price <input type="text" name="price" value={this.state.price} onChange={this.handleChange}/></label>
+            <fieldset id="Form-magazine">
+              <div id="Form-magazine-top">
+                <label id="Form-magazine-name">Name <input type="text" name="name" value={this.state.name} onChange={this.handleChange}/></label>
+                <label id="Form-magazine-volume">Volume <input type="text" name="volume" value={this.state.volume} onChange={this.handleChange}/></label>
+                <label id="Form-magazine-issue">Issue <input type="text" name="issue" value={this.state.issue} onChange={this.handleChange}/></label>
+              </div>
+              <div id="Form-magazine-bottom">
+                <label id="Form-magazine-description">Description <textarea name="description" value={this.state.description} onChange={this.handleChange}></textarea></label>
+                <label id="Form-magazine-price">Price <input type="text" name="price" value={this.state.price} onChange={this.handleChange}/></label>
+              </div>
             </fieldset>
 
             :
@@ -150,7 +160,7 @@ class Form extends React.Component {
           {
             this.state.item ?
 
-            <div>
+            <div id="Form-buttons">
               <button type="button" onClick={this.handleSubmit}>Submit</button>
               <button type="button" onClick={this.handleResetButton}>Reset</button>
               <button type="button" onClick={this.props.handleCancel}>Cancel</button>
@@ -158,7 +168,7 @@ class Form extends React.Component {
 
             :
 
-            <button type="button" onClick={this.props.handleCancel}>Cancel</button>
+            <button id="Form-single-cancel-button" type="button" onClick={this.props.handleCancel}>Cancel</button>
           }
 
         </form>

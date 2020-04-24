@@ -1,3 +1,70 @@
+/* GLOBAL */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: bisque;
+}
+
+
+/* APP */
+.App {
+  margin: auto;
+  padding: 20px;
+  width: 50vw;
+}
+
+#App-button {
+  display: block;
+  margin: auto;
+  font-size: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 120px;
+  height: 60px;
+  background-color: white;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+#App-button:hover {
+  color: white;
+  background-color: black;
+}
+
+
+/* FORM */
+#Form {
+
+}
+
+fieldset {
+  border: none;
+}
+
+#Form-book-or-magazine {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "book magazine";
+}
+
+#Form-book-book {
+  grid-area: book;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#Form-book-magazine {
+  grid-area: magazine;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
 input, textarea {
   transition: all 0.5s ease;
 }
@@ -5,3 +72,113 @@ input, textarea {
 .invalidField {
   background-color: pink;
 }
+
+#Form-buttons {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+#Form-single-cancel-button {
+  display: block;
+  margin: auto;
+}
+
+
+/* BOOK */
+#Form-book {
+
+}
+
+#Form-book-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "title author";
+}
+
+#Form-book-title {
+  grid-area: title;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#Form-book-author {
+  grid-area: author;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#Form-book-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "description price";
+}
+
+#Form-book-description {
+  grid-area: description;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#Form-book-price {
+  grid-area: price;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* MAGAZINE */
+#Form-magazine {
+
+}
+
+#Form-magazine-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: "name volume issue";
+}
+
+#Form-magazine-name {
+  grid-area: name;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#Form-magazine-volume {
+  grid-area: volume;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#Form-magazine-issue {
+  grid-area: issue;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#Form-magazine-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "description price";
+}
+
+#Form-magazine-description {
+  grid-area: description;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#Form-magazine-price {
+  grid-area: price;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
