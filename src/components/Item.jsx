@@ -14,22 +14,22 @@ class Item extends React.Component {
     if (this.props.item.item === 'book') {
       const { title, author, description, price } = this.props.item;
       return (
-        <div className="Item">
-          <p>{title}</p>
-          <p>{author}</p>
-          <p>{description}</p>
-          <p>{price}</p>
+        <div className="Item Item-book">
+          <p className="Item-title">{title}</p>
+          <p className="Item-author">{author}</p>
+          <p className="Item-description">{description}</p>
+          <p className="Item-price">{price}</p>
         </div>
       );
 
     } else if (this.props.item.item === 'magazine') {
       const { name, volume, issue, description, price } = this.props.item;
       return (
-        <div className="Item">
-          <p>{name}</p>
-          <p><span>{volume}</span> <span>{issue}</span></p>
-          <p>{description}</p>
-          <p>{price}</p>
+        <div className="Item Item-magazine">
+          <p className="Item-name">{name}</p>
+          <p className="Item-volume-span"><span>{volume}</span> <span>{issue}</span></p>
+          <p className="Item-description">{description}</p>
+          <p className="Item-price">{price}</p>
         </div>
       );
     }

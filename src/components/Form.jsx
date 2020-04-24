@@ -113,7 +113,7 @@ class Form extends React.Component {
 
   render() {
     return (
-      <div className="Form">
+      <div id="Form">
         <form>
 
           <fieldset>
