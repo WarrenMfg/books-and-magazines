@@ -1,13 +1,9 @@
 const GET = (item = 'item', quantity = 'all', column, direction) => {
-  if (column && direction) {
-    return fetch(`api/${item}/${quantity}/${column}/${direction}`);
-  } else {
-    return fetch(`api/${item}/${quantity}`);
-  }
+  return fetch(`api/${item}/${quantity}/${column}/${direction}`);
 };
 
-const POST = (item = 'item', quantity = 'one', data) => {
-  return fetch(`api/${item}/${quantity}`, {
+const POST = (item = 'item', quantity = 'one', column, direction, data) => {
+  return fetch(`api/${item}/${quantity}/${column}/${direction}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -16,8 +12,8 @@ const POST = (item = 'item', quantity = 'one', data) => {
   });
 };
 
-const PUT = (item = 'item', quantity = 'one', data) => {
-  return fetch(`api/${item}/${quantity}`, {
+const PUT = (item = 'item', quantity = 'one', column, direction, data) => {
+  return fetch(`api/${item}/${quantity}/${column}/${direction}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -26,8 +22,8 @@ const PUT = (item = 'item', quantity = 'one', data) => {
   });
 };
 
-const DELETE = (item = 'item', quantity = 'one', id) => {
-  return fetch(`api/${item}/${quantity}/${id}`, {
+const DELETE = (item = 'item', quantity = 'one', column, direction, id) => {
+  return fetch(`api/${item}/${quantity}/${column}/${direction}/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'

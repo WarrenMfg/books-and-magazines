@@ -10,7 +10,9 @@ class App extends React.Component {
     this.state = {
       formVisible: false,
       items: [],
-      itemInEditMode: null
+      itemInEditMode: null,
+      column: 'price',
+      direction: 'descending'
     };
 
     this.POST = this.POST.bind(this);
@@ -27,11 +29,13 @@ class App extends React.Component {
         this.setState({ formVisible: false, itemInEditMode: null });
       }
     });
-    this.GET('item', 'all');
+    this.GET('item', 'all', this.state.column, this.state.direction);
   }
 
   componentDidUpdate(prevProps, prevState) {
-
+    if (prevState.column !== this.state.column || prevState.direction !== this.state.direction) {
+      this.GET('item', 'all', this.state.column, this.state.direction);
+    }
   }
 
   // API
@@ -42,8 +46,8 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  POST(item, quantity, data) {
-    api.POST(item, quantity, data)
+  POST(item, quantity, column, direction, data) {
+    api.POST(item, quantity, column, direction, data)
       .then(res => res.json())
       .then(items => {
         this.setState({ items });
@@ -52,8 +56,8 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  PUT(item, quantity, data) {
-    api.PUT(item, quantity, data)
+  PUT(item, quantity, column, direction, data) {
+    api.PUT(item, quantity, column, direction, data)
       .then(res => res.json())
       .then(items => {
         this.setState({ items });
@@ -62,8 +66,8 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  DELETE(item, quantity, id) {
-    api.DELETE(item, quantity, id)
+  DELETE(item, quantity, column, direction, id) {
+    api.DELETE(item, quantity, column, direction, id)
       .then(res => res.json())
       .then(items => this.setState({ items }))
       .catch(err => console.error(err));
@@ -71,17 +75,35 @@ class App extends React.Component {
 
   // HANDLERS
   handleSortTable(e) {
-    if (e.target.tagName !== 'P') return;
+    if (e.target.dataset.column === 'edit') return;
 
-    // add column and direction to state
+    const target = e.target.tagName === 'P' ? e.target : e.target.parentElement;
+    const caret = document.querySelector('#ItemList-header i');
 
-    // if already column
-      // make GET request for opposite direction
-      // add opposite i element caret
-    // else
-      // remove current i element
-      // add i element (ascending) after e.target's text node
-      // make GET request
+    // if para already contains i element
+    if (target.contains(caret)) {
+      // switch direction
+      this.setState({ direction: this.state.direction === 'ascending' ? 'descending' : 'ascending' });
+      this.flipCaret(caret);
+
+    // otherwise, remove i element and add to new para
+    } else {
+      caret.remove();
+      const i = document.createElement('i');
+      i.classList.add('fas', 'fa-caret-down');
+      this.setState({ column: target.dataset.column, direction: 'descending' });
+      target.append(i);
+    }
+  }
+
+  flipCaret(caret) {
+    if ( caret.classList.contains('fa-caret-down') ) {
+      caret.classList.remove('fa-caret-down');
+      caret.classList.add('fa-caret-up');
+    } else if ( caret.classList.contains('fa-caret-up') ) {
+      caret.classList.remove('fa-caret-up');
+      caret.classList.add('fa-caret-down');
+    }
   }
 
   hanldeFormVisibility() {
@@ -110,15 +132,15 @@ class App extends React.Component {
     return (
       <div className="App">
         <button id="App-button" type="button" title="Add Item" onClick={this.hanldeFormVisibility}>Add Item</button>
-        { this.state.formVisible && <Form handleCancel={this.hanldeFormVisibility} POST={this.POST} /> }
-        { this.state.itemInEditMode && <Form handleCancel={this.hanldeFormVisibility} itemInEditMode={this.state.itemInEditMode} PUT={this.PUT} /> }
+        { this.state.formVisible && <Form handleCancel={this.hanldeFormVisibility} POST={this.POST} column={this.state.column} direction={this.state.direction} /> }
+        { this.state.itemInEditMode && <Form handleCancel={this.hanldeFormVisibility} itemInEditMode={this.state.itemInEditMode} PUT={this.PUT} column={this.state.column} direction={this.state.direction} /> }
 
         <header id="ItemList-header" onClick={this.handleSortTable}>
-          <p id="header-col-1">Book Title&nbsp;/<br/>Magazine Name</p>
-          <p id="header-col-2">Book author&nbsp;/<br/>Volume &amp; Issue</p>
-          <p id="header-col-3">Description</p>
-          <p id="header-col-4">Price<i className="fas fa-caret-down"></i></p>
-          <p id="header-col-5">Edit&nbsp;/<br/>Delete</p>
+          <p id="header-col-1" data-column="title">Book Title&nbsp;/<br/>Magazine Name</p>
+          <p id="header-col-2" data-column="author">Book author&nbsp;/<br/>Volume &amp; Issue</p>
+          <p id="header-col-3" data-column="description">Description</p>
+          <p id="header-col-4" data-column="price">Price<i className="fas fa-caret-down"></i></p>
+          <p id="header-col-5" data-column="edit">Edit&nbsp;/<br/>Delete</p>
         </header>
 
         <ItemList

@@ -171,9 +171,9 @@ class Form extends React.Component {
 
     if (this.props.itemInEditMode) {
       data._id = this.props.itemInEditMode._id;
-      this.props.PUT('item', 'one', data);
+      this.props.PUT('item', 'one', this.props.column, this.props.direction, data);
     } else {
-      this.props.POST('item', 'one', data);
+      this.props.POST('item', 'one', this.props.column, this.props.direction, data);
     }
   }
 

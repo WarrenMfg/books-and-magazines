@@ -195,15 +195,18 @@ fieldset {
 p#header-col-1 {
   grid-area: col1;
   padding-right: 20px;
+  position: relative;
 }
 
 p#header-col-2 {
   grid-area: col2;
   padding-right: 20px;
+  position: relative;
 }
 
 #header-col-3 {
   grid-area: col3;
+  position: relative;
 }
 
 #header-col-4 {
@@ -213,6 +216,7 @@ p#header-col-2 {
 
 #header-col-5 {
   grid-area: col5;
+  position: relative;
 }
 
 .fa-caret-down, .fa-caret-up {
