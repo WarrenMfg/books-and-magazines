@@ -21,6 +21,7 @@ class App extends React.Component {
     this.POST = this.POST.bind(this);
     this.PUT = this.PUT.bind(this);
     this.handleSearchBarChange = this.handleSearchBarChange.bind(this);
+    this.handleClearSearchInput = this.handleClearSearchInput.bind(this);
     this.handleSortTable = this.handleSortTable.bind(this);
     this.hanldeFormVisibility = this.hanldeFormVisibility.bind(this);
     this.handleEditOrDelete = this.handleEditOrDelete.bind(this);
@@ -35,6 +36,18 @@ class App extends React.Component {
       }
     });
 
+    // on resize, columns receive 'display: none' at media queries. this function handles the caret in case that column gets hidden
+    window.onresize = () => {
+      if (window.innerWidth <= 780 && this.state.column === 'author') {
+        this.updateCaretOnResize();
+      } else if (window.innerWidth <= 970 && this.state.column === 'price') {
+        this.updateCaretOnResize();
+      } else if (window.innerWidth <= 1355 && this.state.column === 'description') {
+        this.updateCaretOnResize();
+      }
+    };
+
+    // check for localStorage and make first GET request
     this.checkForLocalStorageAndMakeFirstGetRequest();
   }
 
@@ -90,6 +103,10 @@ class App extends React.Component {
   // HANDLERS
   handleSearchBarChange(e) {
     this.setState({ searchInput: e.target.value });
+  }
+
+  handleClearSearchInput() {
+    this.setState({ searchInput: '' });
   }
 
   handleSortTable(e, direction = 'ascending') {
@@ -228,6 +245,13 @@ class App extends React.Component {
     }
   }
 
+  updateCaretOnResize() {
+    const caret = document.querySelector('#ItemList-header i');
+    caret.remove();
+    this.addCaret('title', this.state.direction);
+    this.setState({ column: 'title' });
+  }
+
 
   // UI
   render() {
@@ -235,7 +259,11 @@ class App extends React.Component {
       <div className="App">
 
         <div className="App-search">
-          <SearchBar handleSearchBarChange={this.handleSearchBarChange} column={this.state.column} searchInput={this.state.searchInput} />
+          <SearchBar
+            handleSearchBarChange={this.handleSearchBarChange}
+            handleClearSearchInput={this.handleClearSearchInput}
+            column={this.state.column} searchInput={this.state.searchInput}
+          />
           <button id="App-button" type="button" title="Add Item" onClick={this.hanldeFormVisibility}>Add Item</button>
         </div>
         { this.state.formVisible && <Form handleCancel={this.hanldeFormVisibility} POST={this.POST} column={this.state.column} direction={this.state.direction} /> }

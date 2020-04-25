@@ -21,7 +21,9 @@ body {
 }
 
 .App-search {
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 button {
@@ -43,6 +45,44 @@ button:hover {
 }
 
 
+/* SEARCH BAR */
+.SearchBar {
+  align-self: flex-end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SearchBar label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+}
+
+.SearchBar input {
+  width: 30vw;
+  font-size: 16px;
+  margin-top: 2px;
+  padding: 10px;
+  border-top: 1px solid black;
+  border-right: none;
+  border-bottom: 1px solid black;
+  border-left: none;
+  border-radius: 10px;
+}
+
+#SearchBar-clear {
+  margin: 0 20px;
+}
+
+#App-button {
+  margin: 0;
+  align-self: flex-start;
+}
+
+
 /* FORM */
 #Form {
   position: fixed;
@@ -59,8 +99,8 @@ form {
   top: 50vh;
   left: 50vw;
   transform: translate(-50%, -50%);
-  height: 85vh;
-  width: 50vw;
+  height: 670px;
+  width: 40vw;
   padding: 20px;
   background-color: white;
   box-shadow: 0 0 25px black;
@@ -116,7 +156,7 @@ fieldset {
 #Form-book, #Form-magazine {
   display: flex;
   flex-direction: column;
-  padding: 0 25%;
+  padding: 0 15%;
 }
 
 #Form-book label, #Form-magazine label {
@@ -306,6 +346,15 @@ p#header-col-2 {
 
 
 /* MEDIA QUERIES */
+/* @media only screen and (max-width: 1540px) {
+  form {
+    width: 40vw;
+  }
+  #Form-book, #Form-magazine {
+    padding: 0 15%;
+  }
+} */
+
 @media only screen and (max-width: 1355px) {
   #ItemList-header {
     grid-template-columns: 2fr 1fr 1fr 0.5fr;
@@ -322,6 +371,9 @@ p#header-col-2 {
   }
   p#header-col-3, .Item-description {
     display: none;
+  }
+  form {
+    width: 50vw;
   }
   #Form-book, #Form-magazine {
     padding: 0 15%;
@@ -348,12 +400,18 @@ p#header-col-2 {
   p#header-col-4, .Item-price {
     display: none;
   }
+  form {
+    width: 66vw;
+  }
   #Form-book, #Form-magazine {
-    padding: 0 20px;
+    padding: 0 15%;
   }
 }
 
 @media only screen and (max-width: 780px) {
+  .SearchBar {
+    display: none;
+  }
   #ItemList-header {
     grid-template-columns: 2fr 0.5fr;
     grid-template-areas: "col1 col5";
@@ -384,7 +442,7 @@ p#header-col-2 {
   }
 }
 
-@media only screen and (max-width: 590px) {
+@media only screen and (max-width: 625px) {
   .App {
     overflow-x: scroll;
   }

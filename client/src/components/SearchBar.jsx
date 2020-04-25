@@ -7,16 +7,15 @@ class SearchBar extends React.Component {
     this.state = {
 
     };
-
   }
 
   render() {
-    const { column, handleSearchBarChange, searchInput } = this.props;
+    const { column, handleSearchBarChange, searchInput, handleClearSearchInput } = this.props;
     const placeholder = {
-      title: 'Enter the book title or magazine name',
-      author: 'Enter the book author, or the volume or issue number',
-      description: 'Enter a word or phrase in the description',
-      price: 'Enter a price equal to or less than your target'
+      title: 'Title or Name',
+      author: 'Author, Volume, or Issue',
+      description: 'Description',
+      price: 'Price'
     };
 
     return (
@@ -33,6 +32,7 @@ class SearchBar extends React.Component {
             autoFocus
           />
         </label>
+        <button id="SearchBar-clear" type="button" title="Clear" onClick={handleClearSearchInput} >Clear</button>
       </div>
     );
   }
