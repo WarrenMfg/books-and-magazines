@@ -221,7 +221,7 @@ p#header-col-2 {
 
 .fa-caret-down, .fa-caret-up {
   position: absolute;
-  right: 25%;
+  bottom: 6px;
 }
 
 

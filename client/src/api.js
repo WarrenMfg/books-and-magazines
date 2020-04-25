@@ -32,7 +32,7 @@ const DELETE = (item, quantity, column, direction, id) => {
 };
 
 
-module.exports = {
+export default {
   GET,
   POST,
   PUT,

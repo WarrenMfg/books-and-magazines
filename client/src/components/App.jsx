@@ -8,6 +8,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      localStorageAvailable: false,
       formVisible: false,
       items: [],
       itemInEditMode: null,
@@ -24,17 +25,25 @@ class App extends React.Component {
 
   // LIFECYCLE
   componentDidMount() {
+    // add global listener to escape out of form component
     document.body.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         this.setState({ formVisible: false, itemInEditMode: null });
       }
     });
-    this.GET('item', 'all', this.state.column, this.state.direction);
+
+    this.checkForLocalStorageAndMakeFirstGetRequest();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.column !== this.state.column || prevState.direction !== this.state.direction) {
       this.GET('item', 'all', this.state.column, this.state.direction);
+
+      // if localStorage available
+      if (this.state.localStorageAvailable) {
+        // update with latest column/direction
+        localStorage.setItem('columnAndDirection', JSON.stringify({ column: this.state.column, direction: this.state.direction }));
+      }
     }
   }
 
@@ -74,7 +83,7 @@ class App extends React.Component {
   }
 
   // HANDLERS
-  handleSortTable(e) {
+  handleSortTable(e, direction = 'ascending') {
     if (e.target.dataset.column === 'edit') return;
 
     const target = e.target.tagName === 'P' ? e.target : e.target.parentElement;
@@ -89,20 +98,8 @@ class App extends React.Component {
     // otherwise, remove i element and add to new para
     } else {
       caret.remove();
-      const i = document.createElement('i');
-      i.classList.add('fas', 'fa-caret-down');
-      this.setState({ column: target.dataset.column, direction: 'descending' });
-      target.append(i);
-    }
-  }
-
-  flipCaret(caret) {
-    if ( caret.classList.contains('fa-caret-down') ) {
-      caret.classList.remove('fa-caret-down');
-      caret.classList.add('fa-caret-up');
-    } else if ( caret.classList.contains('fa-caret-up') ) {
-      caret.classList.remove('fa-caret-up');
-      caret.classList.add('fa-caret-down');
+      this.addCaret(target.dataset.column, direction);
+      this.setState({ column: target.dataset.column, direction: direction });
     }
   }
 
@@ -128,6 +125,106 @@ class App extends React.Component {
     }
   }
 
+
+  // UTILS
+  checkForLocalStorageAndMakeFirstGetRequest() {
+    // check for localStorage
+    if ( this.checkForLocalStorage() ) {
+
+      // if columnAndDirection is already present
+      const columnAndDirection = localStorage.getItem('columnAndDirection');
+      if (columnAndDirection) {
+        // get localStorage
+        const { column, direction } = JSON.parse(columnAndDirection);
+
+        // if column and direction are both defaults, then must trigger GET here instead of componentDidUpdate
+        if (column === 'price' && direction === 'descending') {
+          this.GET('item', 'all', this.state.column, this.state.direction);
+
+        // if column or direction are not default
+        } else {
+          this.GET('item', 'all', column, direction);
+        }
+
+        // add caret to proper column with proper direction
+        this.addCaret(column, direction);
+
+        // update state
+        this.setState({ localStorageAvailable: true, column, direction });
+
+        // otherwise, localStorage is available, but columnAndDirection not yet set
+      } else {
+        // so GET default column and direction
+        this.GET('item', 'all', this.state.column, this.state.direction);
+
+        // add caret to default column and direction
+        this.addCaret(this.state.column, this.state.direction);
+
+        // update state
+        this.setState({ localStorageAvailable: true });
+      }
+
+
+    // but if localStorage not available
+    } else {
+      this.GET('item', 'all', this.state.column, this.state.direction);
+
+      // add caret to default column and direction
+      this.addCaret(this.state.column, this.state.direction);
+
+      // update state
+      this.setState({ localStorageAvailable: false});
+    }
+  }
+
+  checkForLocalStorage() {
+    // from MDN
+    function storageAvailable(type) {
+      var storage;
+      try {
+        storage = window[type];
+        var x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+      }
+      catch (e) {
+        return e instanceof DOMException && (
+          // everything except Firefox
+          e.code === 22 ||
+          // Firefox
+          e.code === 1014 ||
+          // test name field too, because code might not be present
+          // everything except Firefox
+          e.name === 'QuotaExceededError' ||
+          // Firefox
+          e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+          // acknowledge QuotaExceededError only if there's something already stored
+          (storage && storage.length !== 0);
+      }
+    }
+
+    return storageAvailable('localStorage');
+  }
+
+  addCaret(column, direction) {
+    const i = document.createElement('i');
+    direction === 'ascending' ? i.classList.add('fas', 'fa-caret-up') : i.classList.add('fas', 'fa-caret-down');
+    document.querySelector(`[data-column="${column}"]`).append(i);
+  }
+
+  flipCaret(caret) {
+    if ( caret.classList.contains('fa-caret-down') ) {
+      caret.classList.remove('fa-caret-down');
+      caret.classList.add('fa-caret-up');
+    } else if ( caret.classList.contains('fa-caret-up') ) {
+      caret.classList.remove('fa-caret-up');
+      caret.classList.add('fa-caret-down');
+    }
+  }
+
+
+  // UI
   render() {
     return (
       <div className="App">
@@ -139,7 +236,7 @@ class App extends React.Component {
           <p id="header-col-1" data-column="title">Book Title&nbsp;/<br/>Magazine Name</p>
           <p id="header-col-2" data-column="author">Book author&nbsp;/<br/>Volume &amp; Issue</p>
           <p id="header-col-3" data-column="description">Description</p>
-          <p id="header-col-4" data-column="price">Price<i className="fas fa-caret-down"></i></p>
+          <p id="header-col-4" data-column="price">Price</p>
           <p id="header-col-5" data-column="edit">Edit&nbsp;/<br/>Delete</p>
         </header>
 
