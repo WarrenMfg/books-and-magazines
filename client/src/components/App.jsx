@@ -1,5 +1,6 @@
 import React from 'react';
 import api from '../api';
+import SearchBar from './SearchBar.jsx';
 import Form from './Form.jsx';
 import ItemList from './ItemList.jsx';
 
@@ -9,6 +10,7 @@ class App extends React.Component {
     super();
     this.state = {
       localStorageAvailable: false,
+      searchInput: '',
       formVisible: false,
       items: [],
       itemInEditMode: null,
@@ -18,6 +20,7 @@ class App extends React.Component {
 
     this.POST = this.POST.bind(this);
     this.PUT = this.PUT.bind(this);
+    this.handleSearchBarChange = this.handleSearchBarChange.bind(this);
     this.handleSortTable = this.handleSortTable.bind(this);
     this.hanldeFormVisibility = this.hanldeFormVisibility.bind(this);
     this.handleEditOrDelete = this.handleEditOrDelete.bind(this);
@@ -85,6 +88,10 @@ class App extends React.Component {
 
 
   // HANDLERS
+  handleSearchBarChange(e) {
+    this.setState({ searchInput: e.target.value });
+  }
+
   handleSortTable(e, direction = 'ascending') {
     if (e.target.dataset.column === 'edit') return;
 
@@ -226,13 +233,17 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <button id="App-button" type="button" title="Add Item" onClick={this.hanldeFormVisibility}>Add Item</button>
+
+        <div className="App-search">
+          <SearchBar handleSearchBarChange={this.handleSearchBarChange} column={this.state.column} searchInput={this.state.searchInput} />
+          <button id="App-button" type="button" title="Add Item" onClick={this.hanldeFormVisibility}>Add Item</button>
+        </div>
         { this.state.formVisible && <Form handleCancel={this.hanldeFormVisibility} POST={this.POST} column={this.state.column} direction={this.state.direction} /> }
         { this.state.itemInEditMode && <Form handleCancel={this.hanldeFormVisibility} itemInEditMode={this.state.itemInEditMode} PUT={this.PUT} column={this.state.column} direction={this.state.direction} /> }
 
         <header id="ItemList-header" onClick={this.handleSortTable}>
           <p id="header-col-1" data-column="title">Book Title&nbsp;/<br/>Magazine Name</p>
-          <p id="header-col-2" data-column="author">Book author&nbsp;/<br/>Volume &amp; Issue</p>
+          <p id="header-col-2" data-column="author">Book Author&nbsp;/<br/>Volume &amp; Issue</p>
           <p id="header-col-3" data-column="description">Description</p>
           <p id="header-col-4" data-column="price">Price</p>
           <p id="header-col-5" data-column="edit">Edit&nbsp;/<br/>Delete</p>
@@ -241,6 +252,8 @@ class App extends React.Component {
         <ItemList
           items={this.state.items}
           handleEditOrDelete={this.handleEditOrDelete}
+          column={this.state.column}
+          searchInput={this.state.searchInput}
         />
       </div>
     );

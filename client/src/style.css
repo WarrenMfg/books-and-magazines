@@ -20,6 +20,10 @@ body {
   background-color: white;
 }
 
+.App-search {
+
+}
+
 button {
   display: block;
   margin: auto;
