@@ -91,7 +91,7 @@ const subSort = (docs, key1, key2) => {
 
 
 
-module.exports = {
+export const utils = {
   sortAscending,
   sortDescending
 };

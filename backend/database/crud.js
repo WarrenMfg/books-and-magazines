@@ -1,4 +1,4 @@
-const utils = require('./utils');
+import { utils } from './utils';
 
 
 // const getOne = model => (req, res) => {
@@ -99,7 +99,7 @@ const getAllByUserOrder = model => async (req, res) => {
 };
 
 
-module.exports = (model) => ({
+export const crud = (model) => ({
   // getOne: getOne(model),
   createOne: createOne(model),
   updateOne: updateOne(model),

@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const URI = require('./URI');
+import mongoose from 'mongoose';
+import { URI } from './URI';
 
-module.exports = (location = URI) => {
+export const connect = (location = URI) => {
   mongoose.connect(location, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false });
   const db = mongoose.connection;
   db.on('error', (err) => console.log('connection error:', err));
