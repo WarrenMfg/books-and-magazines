@@ -1,8 +1,8 @@
-const GET = (item = 'item', quantity = 'all', column, direction) => {
+const GET = (item, quantity, column, direction) => {
   return fetch(`api/${item}/${quantity}/${column}/${direction}`);
 };
 
-const POST = (item = 'item', quantity = 'one', column, direction, data) => {
+const POST = (item, quantity, column, direction, data) => {
   return fetch(`api/${item}/${quantity}/${column}/${direction}`, {
     method: 'POST',
     headers: {
@@ -12,7 +12,7 @@ const POST = (item = 'item', quantity = 'one', column, direction, data) => {
   });
 };
 
-const PUT = (item = 'item', quantity = 'one', column, direction, data) => {
+const PUT = (item, quantity, column, direction, data) => {
   return fetch(`api/${item}/${quantity}/${column}/${direction}`, {
     method: 'PUT',
     headers: {
@@ -22,7 +22,7 @@ const PUT = (item = 'item', quantity = 'one', column, direction, data) => {
   });
 };
 
-const DELETE = (item = 'item', quantity = 'one', column, direction, id) => {
+const DELETE = (item, quantity, column, direction, id) => {
   return fetch(`api/${item}/${quantity}/${column}/${direction}/${id}`, {
     method: 'DELETE',
     headers: {
