@@ -47,6 +47,7 @@ class App extends React.Component {
     }
   }
 
+
   // API
   GET(item, quantity, column, direction) {
     api.GET(item, quantity, column, direction)
@@ -81,6 +82,7 @@ class App extends React.Component {
       .then(items => this.setState({ items }))
       .catch(err => console.error(err));
   }
+
 
   // HANDLERS
   handleSortTable(e, direction = 'ascending') {
@@ -129,7 +131,7 @@ class App extends React.Component {
   // UTILS
   checkForLocalStorageAndMakeFirstGetRequest() {
     // check for localStorage
-    if ( this.checkForLocalStorage() ) {
+    if ( this.storageAvailable('localStorage') ) {
 
       // if columnAndDirection is already present
       const columnAndDirection = localStorage.getItem('columnAndDirection');
@@ -177,34 +179,30 @@ class App extends React.Component {
     }
   }
 
-  checkForLocalStorage() {
+  storageAvailable(type) {
     // from MDN
-    function storageAvailable(type) {
-      var storage;
-      try {
-        storage = window[type];
-        var x = '__storage_test__';
-        storage.setItem(x, x);
-        storage.removeItem(x);
-        return true;
-      }
-      catch (e) {
-        return e instanceof DOMException && (
-          // everything except Firefox
-          e.code === 22 ||
-          // Firefox
-          e.code === 1014 ||
-          // test name field too, because code might not be present
-          // everything except Firefox
-          e.name === 'QuotaExceededError' ||
-          // Firefox
-          e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-          // acknowledge QuotaExceededError only if there's something already stored
-          (storage && storage.length !== 0);
-      }
+    var storage;
+    try {
+      storage = window[type];
+      var x = '__storage_test__';
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
     }
-
-    return storageAvailable('localStorage');
+    catch (e) {
+      return e instanceof DOMException && (
+        // everything except Firefox
+        e.code === 22 ||
+        // Firefox
+        e.code === 1014 ||
+        // test name field too, because code might not be present
+        // everything except Firefox
+        e.name === 'QuotaExceededError' ||
+        // Firefox
+        e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+        // acknowledge QuotaExceededError only if there's something already stored
+        (storage && storage.length !== 0);
+    }
   }
 
   addCaret(column, direction) {
