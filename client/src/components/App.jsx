@@ -52,6 +52,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    // if column or direction changed, make GET request
     if (prevState.column !== this.state.column || prevState.direction !== this.state.direction) {
       this.GET('item', 'all', this.state.column, this.state.direction);
 
@@ -110,8 +111,10 @@ class App extends React.Component {
   }
 
   handleSortTable(e, direction = 'ascending') {
+    // if clicked on Edit/Delete column
     if (e.target.dataset.column === 'edit') return;
 
+    // determine if click was on i element (caret) or p element
     const target = e.target.tagName === 'P' ? e.target : e.target.parentElement;
     const caret = document.querySelector('#ItemList-header i');
 
@@ -130,9 +133,11 @@ class App extends React.Component {
   }
 
   handleFormVisibility() {
-    // if clicked cancel button
+    // in edit mode
     if (this.state.itemInEditMode) {
       this.setState({ itemInEditMode: null });
+
+    // add item
     } else {
       this.setState({ formVisible: !this.state.formVisible });
     }
@@ -148,7 +153,7 @@ class App extends React.Component {
 
     // delete
     } else if (id && e.target.classList.contains('fa-trash-alt')) {
-      this.DELETE('item', 'one', id);
+      this.DELETE('item', 'one', this.state.column, this.state.direction, id);
     }
   }
 
@@ -161,16 +166,12 @@ class App extends React.Component {
       // if columnAndDirection is already present
       const columnAndDirection = localStorage.getItem('columnAndDirection');
       if (columnAndDirection) {
-        // get localStorage
+        // parse localStorage
         const { column, direction } = JSON.parse(columnAndDirection);
 
-        // if column and direction are both defaults, then must trigger GET here instead of componentDidUpdate
+        // if column and direction are both original defaults, then must trigger GET here instead of componentDidUpdate
         if (column === 'price' && direction === 'descending') {
           this.GET('item', 'all', this.state.column, this.state.direction);
-
-        // if column or direction are not default
-        } else {
-          this.GET('item', 'all', column, direction);
         }
 
         // add caret to proper column with proper direction
@@ -181,7 +182,7 @@ class App extends React.Component {
 
         // otherwise, localStorage is available, but columnAndDirection not yet set
       } else {
-        // so GET default column and direction
+        // GET default column and direction
         this.GET('item', 'all', this.state.column, this.state.direction);
 
         // add caret to default column and direction
@@ -237,9 +238,12 @@ class App extends React.Component {
   }
 
   flipCaret(caret) {
+    // if down, make up
     if ( caret.classList.contains('fa-caret-down') ) {
       caret.classList.remove('fa-caret-down');
       caret.classList.add('fa-caret-up');
+
+    // if up, make down
     } else if ( caret.classList.contains('fa-caret-up') ) {
       caret.classList.remove('fa-caret-up');
       caret.classList.add('fa-caret-down');
@@ -249,6 +253,7 @@ class App extends React.Component {
   updateCaretOnResize() {
     const caret = document.querySelector('#ItemList-header i');
     caret.remove();
+    // if this.state.column gets hidden on resize, then default to caret on title column
     this.addCaret('title', this.state.direction);
     this.setState({ column: 'title' });
   }

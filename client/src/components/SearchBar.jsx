@@ -2,13 +2,6 @@ import React from 'react';
 
 
 class SearchBar extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-
-    };
-  }
-
   render() {
     const { column, handleSearchBarChange, searchInput, handleClearSearchInput } = this.props;
     const placeholder = {
