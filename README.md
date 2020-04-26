@@ -21,15 +21,21 @@ These instructions will get you a copy of the project up and running on your loc
 
 - `npm run buildFrontend`
 
-#### Build and watch frontend
+#### Or build and watch frontend
 
 - `npm run watchFrontend`
+
+#### Create a URI.js file
+- `cd backend/database`
+- `touch URI.js`
+- Add the following line:
+  - `export const URI = 'mongodb://localhost/level-access';`
 
 #### Build backend
 
 - `npm run buildBackend`
 
-#### Build and watch backend
+#### Or build and watch backend
 
 - `npm run watchBackend`
 
@@ -37,14 +43,18 @@ These instructions will get you a copy of the project up and running on your loc
 
 - `npm start`
 
-#### Start with Nodemon and watch backend
+#### Or start with Nodemon and watch backend
 
 - `npm run startDev`
+
+#### Seed database
+
+- `npm run seed`
 
 ## Deployment
 
 - A temporary website may be found on AWS:
-  - [website]()
+  - [Books & Magazines](http://ec2-3-23-88-197.us-east-2.compute.amazonaws.com:50000/)
 
 ![Books & Magazines](screenshot.png)
 
