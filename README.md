@@ -55,11 +55,14 @@ These instructions will get you a copy of the project up and running on your loc
 
 - A temporary website may be found on AWS:
   - [Books & Magazines](http://ec2-3-23-88-197.us-east-2.compute.amazonaws.com:50000/)
+  - NOTE: Only optimized for Google Chrome v81 at this time
 
 ![Books & Magazines](screenshot.png)
 
 - Another example of a form can be found on Netlify
   - [Chef Emoji](https://chef-emoji.netlify.app/)
+  - NOTE: Only optimized for Google Chrome v81 at this time
+  - NOTE: Submits via email
 
 ## Built With
 
