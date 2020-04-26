@@ -4,15 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node dist/database/seeder.js",
     "buildFrontend": "npx webpack",
-    "watch": "npx webpack --watch",
-    "buildBackend": "npx babel backend --watch --out-dir dist",
+    "watchFrontend": "npx webpack --watch",
+    "buildBackend": "npx babel backend --out-dir dist",
+    "watchBackend": "npx babel backend --watch --out-dir dist",
     "start": "node dist/server/index.js",
     "startDev": "nodemon dist/server/index.js"
   },
   "nodemonConfig": {
-    "watch": ["backend/*"]
+    "watch": [
+      "backend/*"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -22,8 +25,10 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
+    "axios": "^0.19.2",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.5.2",
+    "faker": "^4.1.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.3",
     "style-loader": "^1.1.4",
