@@ -27,6 +27,12 @@ class Form extends React.Component {
   }
 
   componentDidMount() {
+    document.querySelector('#Form').addEventListener('click', (e) => {
+      if (e.target.id === 'Form') {
+        this.props.handleCancel();
+      }
+    });
+
     if (this.props.itemInEditMode) {
       this.checkRadioButtonAndDisable();
       this.populateInputsWithItemValues();

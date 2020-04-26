@@ -23,7 +23,7 @@ class App extends React.Component {
     this.handleSearchBarChange = this.handleSearchBarChange.bind(this);
     this.handleClearSearchInput = this.handleClearSearchInput.bind(this);
     this.handleSortTable = this.handleSortTable.bind(this);
-    this.hanldeFormVisibility = this.hanldeFormVisibility.bind(this);
+    this.handleFormVisibility = this.handleFormVisibility.bind(this);
     this.handleEditOrDelete = this.handleEditOrDelete.bind(this);
   }
 
@@ -77,7 +77,7 @@ class App extends React.Component {
       .then(res => res.json())
       .then(items => {
         this.setState({ items });
-        this.hanldeFormVisibility();
+        this.handleFormVisibility();
       })
       .catch(err => console.error(err));
   }
@@ -87,7 +87,7 @@ class App extends React.Component {
       .then(res => res.json())
       .then(items => {
         this.setState({ items });
-        this.hanldeFormVisibility();
+        this.handleFormVisibility();
       })
       .catch(err => console.error(err));
   }
@@ -129,7 +129,8 @@ class App extends React.Component {
     }
   }
 
-  hanldeFormVisibility() {
+  handleFormVisibility() {
+    // if clicked cancel button
     if (this.state.itemInEditMode) {
       this.setState({ itemInEditMode: null });
     } else {
@@ -264,10 +265,28 @@ class App extends React.Component {
             handleClearSearchInput={this.handleClearSearchInput}
             column={this.state.column} searchInput={this.state.searchInput}
           />
-          <button id="App-button" type="button" title="Add Item" onClick={this.hanldeFormVisibility}>Add Item</button>
+          <button id="App-button" type="button" title="Add Item" onClick={this.handleFormVisibility}>Add Item</button>
         </div>
-        { this.state.formVisible && <Form handleCancel={this.hanldeFormVisibility} POST={this.POST} column={this.state.column} direction={this.state.direction} /> }
-        { this.state.itemInEditMode && <Form handleCancel={this.hanldeFormVisibility} itemInEditMode={this.state.itemInEditMode} PUT={this.PUT} column={this.state.column} direction={this.state.direction} /> }
+
+        {
+          this.state.formVisible &&
+            <Form
+              handleCancel={this.handleFormVisibility}
+              POST={this.POST} column={this.state.column}
+              direction={this.state.direction}
+            />
+        }
+
+        {
+          this.state.itemInEditMode &&
+            <Form
+              handleCancel={this.handleFormVisibility}
+              itemInEditMode={this.state.itemInEditMode}
+              PUT={this.PUT}
+              column={this.state.column}
+              direction={this.state.direction}
+            />
+        }
 
         <header id="ItemList-header" onClick={this.handleSortTable}>
           <p id="header-col-1" data-column="title">Book Title&nbsp;/<br/>Magazine Name</p>
