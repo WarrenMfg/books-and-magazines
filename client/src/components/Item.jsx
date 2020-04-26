@@ -2,14 +2,6 @@ import React from 'react';
 
 
 class Item extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-
-    };
-
-  }
-
   render() {
     if (this.props.item.item === 'book') {
       const { _id, title, author, description, price } = this.props.item;

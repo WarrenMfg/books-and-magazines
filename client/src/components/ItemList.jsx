@@ -3,14 +3,6 @@ import Item from './Item.jsx';
 
 
 class ItemList extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-
-    };
-
-  }
-
   render() {
     const { items, handleEditOrDelete, column, searchInput } = this.props;
     const regexp = searchInput ? new RegExp(`\\b${searchInput.toUpperCase()}\\b`) : null;

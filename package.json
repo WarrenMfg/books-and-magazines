@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "buildFrontend": "npx webpack",
+    "watch": "npx webpack --watch",
     "buildBackend": "npx babel backend --watch --out-dir dist",
     "start": "node dist/server/index.js",
     "startDev": "nodemon dist/server/index.js"

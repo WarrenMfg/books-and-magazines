@@ -2,8 +2,8 @@ import React from 'react';
 
 
 class Form extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       item: null,
 
@@ -27,12 +27,14 @@ class Form extends React.Component {
   }
 
   componentDidMount() {
+    // enable cancel by clicking outside of form
     document.querySelector('#Form').addEventListener('click', (e) => {
       if (e.target.id === 'Form') {
         this.props.handleCancel();
       }
     });
 
+    // if editing an item, then disable radio buttons and populate inputs with item values
     if (this.props.itemInEditMode) {
       this.checkRadioButtonAndDisable();
       this.populateInputsWithItemValues();
@@ -43,9 +45,11 @@ class Form extends React.Component {
     const radio = document.querySelectorAll('input[type="radio"]');
 
     radio.forEach(button => {
+      // check the proper button
       if (button.value === this.props.itemInEditMode.item) {
         button.checked = true;
       }
+      // disable both buttons
       button.disabled = true;
     })
   }
@@ -68,10 +72,13 @@ class Form extends React.Component {
     const description = itemValues.description ? itemValues.description : '';
     const price = itemValues.price ? itemValues.price : '';
 
+    // set state with values of item being edited
     this.setState({ item, title, author, name, volume, issue, description, price });
   }
 
   handleChange(e) {
+    // handle change when adding a new item
+
     // if radio button
     if (e.target.name === 'item') {
       // reset previous fields
@@ -96,8 +103,12 @@ class Form extends React.Component {
   handleResetButton() {
     if (this.state.item === 'book') {
       // resuse code to reset opposite
+
+      // resets book
       this.resetFields('magazine');
     } else if (this.state.item === 'magazine') {
+
+      // resets magazine
       this.resetFields('book');
     }
 
@@ -106,6 +117,8 @@ class Form extends React.Component {
 
   removeUserFeedback() {
     const para = document.querySelectorAll('form p');
+
+    // remove background color and replace text with &nbsp;
     para.forEach(p => {
       p.classList.remove('invalid');
       p.innerText = '\u00a0';
@@ -128,10 +141,12 @@ class Form extends React.Component {
       price: 'Price required: numeric characters'
     };
 
+    // input feedback
     const para = document.querySelector(`#Form-${name}-feedback`);
     para.classList.add('invalid');
     para.innerText = feedback[name];
 
+    // feedback below buttons
     const buttons = document.querySelector('#Form-buttons-feedback');
     buttons.classList.add('invalid');
     buttons.innerText = 'Please review the errors above';
@@ -175,9 +190,12 @@ class Form extends React.Component {
     const data = this.validateForm(this.state.item);
     if (!data) return;
 
+    // if editing, then PUT
     if (this.props.itemInEditMode) {
       data._id = this.props.itemInEditMode._id;
       this.props.PUT('item', 'one', this.props.column, this.props.direction, data);
+
+    // otherwise, POST
     } else {
       this.props.POST('item', 'one', this.props.column, this.props.direction, data);
     }
