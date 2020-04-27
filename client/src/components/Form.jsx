@@ -1,4 +1,5 @@
 import React from 'react';
+import DOMpurify from 'dompurify';
 
 
 class Form extends React.Component {
@@ -165,7 +166,7 @@ class Form extends React.Component {
       // this is not as scary as it seems: if state propery is truthy, then add it to data object; otherwise, provide user feedback, and set isValid to false
       title && /^[A-Za-z0-9 \.\'\"\-]+$/.test(title) ? data.title = title.trim() : this.provideUserFeedback('title') ? isValid = false : null;
       author && /^[A-Za-z \-]+$/.test(author) ? data.author = author.trim() : this.provideUserFeedback('author') ? isValid = false : null;
-      description ? data.description = description.trim() : this.provideUserFeedback('description') ? isValid = false : null;
+      DOMpurify.sanitize( description.trim() ) ? data.description = DOMpurify.sanitize( description.trim() ) : this.provideUserFeedback('description') ? isValid = false : null;
       price && /^([0-9])+\.?([0-9]{2})?$/.test(price) ? data.price = parseFloat(price) : this.provideUserFeedback('price') ? isValid = false : null;
 
     } else if (item === 'magazine') {
@@ -175,7 +176,7 @@ class Form extends React.Component {
       name && /^[A-Za-z0-9 \.\'\"\-]+$/.test(name) ? data.name = name.trim() : this.provideUserFeedback('name') ? isValid = false : null;
       volume && /^[0-9]+$/.test(volume) ? data.volume = parseInt(volume, 10) : this.provideUserFeedback('volume') ? isValid = false : null;
       issue && /^[0-9]+$/.test(issue) ? data.issue = parseInt(issue, 10) : this.provideUserFeedback('issue') ? isValid = false : null;
-      description ? data.description = description.trim() : this.provideUserFeedback('description') ? isValid = false : null;
+      DOMpurify.sanitize( description.trim() ) ? data.description = DOMpurify.sanitize( description.trim() ) : this.provideUserFeedback('description') ? isValid = false : null;
       price && /^([0-9])+\.?([0-9]{2})?$/.test(price) ? data.price = parseFloat(price) : this.provideUserFeedback('price') ? isValid = false : null;
     }
 
