@@ -54,7 +54,15 @@ class App extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     // if column or direction changed, make GET request
     if (prevState.column !== this.state.column || prevState.direction !== this.state.direction) {
-      this.GET('item', 'all', this.state.column, this.state.direction);
+
+      // if column and direction have switched
+      if (prevState.column !== this.state.column) {
+        this.GET('item', 'all', this.state.column, this.state.direction, true);
+
+      // if just direction has switched
+      } else {
+        this.GET('item', 'all', this.state.column, this.state.direction, null, true);
+      }
 
       // if localStorage available
       if (this.state.localStorageAvailable) {
@@ -66,10 +74,25 @@ class App extends React.Component {
 
 
   // API
-  GET(item, quantity, column, direction) {
+  GET(item, quantity, column, direction, newColumn, newDirection) {
     api.GET(item, quantity, column, direction)
       .then(res => res.json())
-      .then(items => this.setState({ items }))
+      .then(items => {
+        this.setState({ items });
+
+        // if componentDidUpdate with a new column
+        if (newColumn) {
+          const caret = document.querySelector('#ItemList-header i');
+          if (caret) caret.remove(); // on load, using localStorage, DOM will not have caret yet
+          this.addCaret(this.state.column, this.state.direction);
+
+        // else if componentDidUpdate with new direction
+        } else if (newDirection) {
+          const caret = document.querySelector('#ItemList-header i');
+          caret ? this.flipCaret(caret) : this.addCaret(this.state.column, this.state.direction); // on load, using localStorage, DOM will not have caret yet, so add caret
+        }
+
+      })
       .catch(err => console.error(err));
   }
 
@@ -122,12 +145,9 @@ class App extends React.Component {
     if (target.contains(caret)) {
       // switch direction
       this.setState({ direction: this.state.direction === 'ascending' ? 'descending' : 'ascending' });
-      this.flipCaret(caret);
 
-    // otherwise, remove i element and add to new para
+    // otherwise, update state with new column and direction
     } else {
-      caret.remove();
-      this.addCaret(target.dataset.column, direction);
       this.setState({ column: target.dataset.column, direction: direction });
     }
   }
@@ -172,13 +192,20 @@ class App extends React.Component {
         // if column and direction are both original defaults, then must trigger GET here instead of componentDidUpdate
         if (column === 'price' && direction === 'descending') {
           this.GET('item', 'all', this.state.column, this.state.direction);
+
+          // add caret to proper column with proper direction
+          this.addCaret(column, direction);
+
+          // update state
+          this.setState({ localStorageAvailable: true });
+
+        // else if update state and make GET request from componentDidUpdate
+        } else {
+          // caret added inside this.GET()
+          // update state
+          this.setState({ localStorageAvailable: true, column, direction });
         }
 
-        // add caret to proper column with proper direction
-        this.addCaret(column, direction);
-
-        // update state
-        this.setState({ localStorageAvailable: true, column, direction });
 
         // otherwise, localStorage is available, but columnAndDirection not yet set
       } else {
