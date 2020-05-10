@@ -1,7 +1,7 @@
 {
   "name": "books-and-magazines",
   "version": "1.0.0",
-  "description": "Sort and search CRUD SPA for books and magazines with web accessible forms",
+  "description": "Responsive sort and search CRUD single-page application with accessible forms",
   "main": "index.js",
   "scripts": {
     "seed": "node dist/database/seeder.js",

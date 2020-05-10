@@ -1,6 +1,6 @@
 # Books & Magazines
 
-Sort and search CRUD SPA for books and magazines with web accessible forms
+Responsive sort and search CRUD single-page application with accessible forms
 
 ## Getting Started
 
