@@ -1,6 +1,6 @@
 # Books & Magazines
 
-Sort and search CRUD SPA for books and magazines with accessible forms
+Sort and search CRUD SPA for books and magazines with web accessible forms
 
 ## Getting Started
 
