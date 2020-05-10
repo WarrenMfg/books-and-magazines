@@ -1,6 +1,6 @@
 # Books & Magazines
 
-Technical challenge for the Full Stack Engineer position at Level Access.
+Sort and search CRUD SPA for books and magazines with accessible forms
 
 ## Getting Started
 
@@ -29,7 +29,7 @@ These instructions will get you a copy of the project up and running on your loc
 - `cd backend/database`
 - `touch URI.js`
 - Add the following line:
-  - `export const URI = 'mongodb://localhost/level-access';`
+  - `export const URI = 'mongodb://localhost/<your database name>';`
 
 #### Build backend
 

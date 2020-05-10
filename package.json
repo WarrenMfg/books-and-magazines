@@ -1,7 +1,7 @@
 {
-  "name": "kent-warren-full-stack-engineer",
+  "name": "books-and-magazines",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sort and search CRUD SPA for books and magazines with accessible forms",
   "main": "index.js",
   "scripts": {
     "seed": "node dist/database/seeder.js",
