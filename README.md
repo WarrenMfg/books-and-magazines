@@ -54,7 +54,7 @@ These instructions will get you a copy of the project up and running on your loc
 ## Deployment
 
 - A temporary website can be found on Amazon Web Services:
-  - [Books & Magazines](http://ec2-3-23-88-197.us-east-2.compute.amazonaws.com:50000/)
+  - ~~[Books & Magazines](http://ec2-3-23-88-197.us-east-2.compute.amazonaws.com:50000/)~~
   - NOTE: Only optimized for Google Chrome at this time
 
 ![Books & Magazines](booksAndMagazines.png)
