@@ -2,6 +2,10 @@
 
 Responsive sort and search CRUD single-page application with accessible forms
 
+[Video demonstration](https://youtu.be/q7j22RzrGvw)
+
+![Books & Magazines](booksAndMagazines.png)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine.
@@ -55,13 +59,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 - A temporary website can be found on Amazon Web Services:
   - ~~[Books & Magazines](http://ec2-3-23-88-197.us-east-2.compute.amazonaws.com:50000/)~~
-  - NOTE: Only optimized for Google Chrome at this time
-
-![Books & Magazines](booksAndMagazines.png)
 
 - Another example of a form can be found on Netlify
   - [Chef Emoji](https://chef-emoji.netlify.app/)
-  - NOTE: Only optimized for Google Chrome at this time
   - NOTE: Submits via email
 
 ![Chef Emoji](chefEmoji.png)
