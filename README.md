@@ -29,12 +29,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 - `npm run watchFrontend`
 
-#### Create a URI.js file
-- `cd backend/database`
-- `touch URI.js`
-- Add the following line:
-  - `export const URI = 'mongodb://localhost/<your database name>';`
-
 #### Build backend
 
 - `npm run buildBackend`
