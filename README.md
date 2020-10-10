@@ -12,8 +12,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Node and NPM versions used
 
-- Node 10.18.0
-- NPM 6.14.4
+- Node 10.22.1
+- NPM 6.14.6
 
 ### Installing
 
@@ -52,7 +52,7 @@ These instructions will get you a copy of the project up and running on your loc
 ## Deployment
 
 - A temporary website can be found on Amazon Web Services:
-  - ~~[Books & Magazines](http://ec2-3-23-88-197.us-east-2.compute.amazonaws.com:50000/)~~
+  - [Books & Magazines](http://ec2-54-196-192-181.compute-1.amazonaws.com:50000/)
 
 - Another example of a form can be found on Netlify
   - [Chef Emoji](https://chef-emoji.netlify.app/)
