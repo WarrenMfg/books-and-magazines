@@ -38,7 +38,7 @@
   "dependencies": {
     "@types/mongoose": "^5.7.36",
     "dompurify": "^2.0.10",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mongoose": "^5.9.10",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
